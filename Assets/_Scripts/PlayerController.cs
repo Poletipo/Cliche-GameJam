@@ -6,11 +6,14 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-
-
     Cliche_InputAction _myInput;
     [SerializeField]
     MovementController _mc;
+    [SerializeField]
+    IHitter hitter;
+
+    [SerializeField]
+    PlayerAnimCtrl playerAnimCtrl;
 
 
     // Start is called before the first frame update
@@ -20,11 +23,26 @@ public class PlayerController : MonoBehaviour
 
         _myInput.Player.Move.performed += OnMove;
         _myInput.Player.Move.canceled += OnMoveStop;
+
+        _myInput.Player.Fire.performed += OnAttack;
         _myInput.Enable();
-
-
-
     }
+
+    private void OnAttack(InputAction.CallbackContext obj)
+    {
+        playerAnimCtrl.AttackAnim();
+    }
+
+    public void ActivateHitter()
+    {
+        hitter.Activate();
+    }
+    public void DeactivateHitter()
+    {
+        hitter.Deactivate();
+    }
+
+
 
     private void OnMoveStop(InputAction.CallbackContext obj)
     {
@@ -39,6 +57,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        UpdateAnimation();
+    }
+
+    private void UpdateAnimation()
+    {
+        float movementVelocity = new Vector2(_mc.Velocity.x, _mc.Velocity.z).magnitude / _mc.MaxSpeed;
+        playerAnimCtrl.MovementVelocity = movementVelocity;
     }
 }

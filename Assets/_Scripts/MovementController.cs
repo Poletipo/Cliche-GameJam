@@ -6,14 +6,17 @@ public class MovementController : MonoBehaviour
 {
 
 
-    public float Speed = 5;
+    public float MaxSpeed = 5;
+    public float Acceleration = 1;
+
+    public float RotationSpeed = 20;
 
     Rigidbody _rb;
     private Vector2 _moveInput;
 
+    private float angle = 0;
 
-
-    Vector3 _velocity = new Vector3();
+    public Vector3 Velocity = new Vector3();
 
 
     public Vector2 MoveInput
@@ -32,29 +35,33 @@ public class MovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _velocity = _rb.velocity;
+        Velocity = _rb.velocity;
+
+        Vector2 desiredVelocity = MoveInput * MaxSpeed;
+
+        Velocity.x = desiredVelocity.x;
+        Velocity.z = desiredVelocity.y;
+
+        _rb.velocity = Velocity;
 
 
-
-        Vector2 desiredVelocity = MoveInput * Speed;
-
-        _velocity.x = desiredVelocity.x;
-        _velocity.z = desiredVelocity.y;
-
-        _rb.velocity = _velocity;
-
-
-
-
-        if(MoveInput.magnitude > 0) {
-
-            Vector3 direction = new Vector3(MoveInput.x, 0, MoveInput.y);
-
-            transform.rotation = Quaternion.LookRotation(direction);
-
-
-        }
-
+        HandleRotation();
 
     }
+
+
+    private void HandleRotation()
+    {
+        if (MoveInput.magnitude > 0)
+        {
+            float desiredAngle = Mathf.Rad2Deg * Mathf.Atan2(MoveInput.x, MoveInput.y);
+
+            angle = Mathf.LerpAngle(angle, desiredAngle, RotationSpeed);
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
+        }
+    }
+
+
+
+
 }
