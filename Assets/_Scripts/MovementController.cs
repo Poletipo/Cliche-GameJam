@@ -32,8 +32,8 @@ public class MovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         _velocity = _rb.velocity;
+
 
 
         Vector2 desiredVelocity = MoveInput * Speed;
@@ -42,6 +42,19 @@ public class MovementController : MonoBehaviour
         _velocity.z = desiredVelocity.y;
 
         _rb.velocity = _velocity;
+
+
+
+
+        if(MoveInput.magnitude > 0) {
+
+            Vector3 direction = new Vector3(MoveInput.x, 0, MoveInput.y);
+
+            transform.rotation = Quaternion.LookRotation(direction);
+
+
+        }
+
 
     }
 }
