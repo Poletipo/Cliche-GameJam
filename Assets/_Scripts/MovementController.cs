@@ -5,6 +5,7 @@ using UnityEngine;
 public class MovementController : MonoBehaviour
 {
 
+    public bool IsEnabled = true;
 
     public float MaxSpeed = 5;
     public float Acceleration = 1;
@@ -35,6 +36,16 @@ public class MovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (IsEnabled)
+        {
+            HandleMovement();
+            HandleRotation();
+        }
+    }
+
+    private void HandleMovement()
+    {
         Velocity = _rb.velocity;
 
         Vector2 desiredVelocity = MoveInput * MaxSpeed;
@@ -43,12 +54,7 @@ public class MovementController : MonoBehaviour
         Velocity.z = desiredVelocity.y;
 
         _rb.velocity = Velocity;
-
-
-        HandleRotation();
-
     }
-
 
     private void HandleRotation()
     {
@@ -61,7 +67,11 @@ public class MovementController : MonoBehaviour
         }
     }
 
-
+    public void KnockBack(Vector3 direction,float force)
+    {
+        Debug.Log("KnockedBack");
+        _rb.velocity = direction * force;
+    }
 
 
 }

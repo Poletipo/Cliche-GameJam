@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class IHitter : MonoBehaviour
 {
-    bool _isActivated = false;
 
+    public GameObject HitterSource;
+
+    bool _isActivated = false;
     List<Collider> collidersList = new List<Collider>();
 
     public void Activate()
@@ -30,10 +32,24 @@ public class IHitter : MonoBehaviour
             {
                 collidersList.Add(collider);
 
-                Debug.Log($"{collider.name} is hurt");
+                Hit(hitable);
+
             }
         }
 
     }
+
+
+    private void Hit(IHitable hitable)
+    {
+        IHitable.HitterValue value = new IHitable.HitterValue();
+        value.dmg = 1;
+        value.hitter = this;
+
+        hitable.Hit(value);
+        Debug.Log($"{hitable.name} is hurt");
+    }
+
+
 
 }

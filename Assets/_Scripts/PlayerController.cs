@@ -36,10 +36,12 @@ public class PlayerController : MonoBehaviour
     public void ActivateHitter()
     {
         hitter.Activate();
+        _mc.IsEnabled = false;
     }
     public void DeactivateHitter()
     {
         hitter.Deactivate();
+        _mc.IsEnabled = true;
     }
 
 

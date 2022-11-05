@@ -8,6 +8,7 @@ public class FloorArray : MonoBehaviour
 
     //public Vector2 roomSize = new Vector2(1, 1);
     public GameObject Tile;
+    public GameObject Walls;
 
     public Vector2Int RoomSize;
     private Vector2Int _roomSizeTemp;
@@ -50,13 +51,22 @@ public class FloorArray : MonoBehaviour
         float yMin = -((RoomSize.y * TileSize * .5f) - (TileSize * .5f));
 
 
-        for (int i = 0; i < RoomSize.y; i++) {
+        for (int i = -1; i < RoomSize.y+1; i++) {
 
-            for (int j = 0; j < RoomSize.x; j++) {
+            for (int j = -1; j < RoomSize.x+1; j++) {
 
                 Vector3 pos = new Vector3(xMin + ((float)j * (TileSize)) , 0, yMin + ((float)i * TileSize));
 
-                GameObject obj = Instantiate(Tile, pos,Quaternion.identity);
+                GameObject obj;
+                if (i==-1 || i == RoomSize.y || j == -1 || j == RoomSize.x)
+                {
+                    obj = Instantiate(Walls, pos, Quaternion.identity);
+                }
+                else
+                {
+                    obj = Instantiate(Tile, pos,Quaternion.identity);
+
+                }
                 obj.transform.localScale = new Vector3(TileSize, 1, TileSize);
                 obj.transform.parent = transform;
             }
