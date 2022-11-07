@@ -62,7 +62,7 @@ public class MovementController : MonoBehaviour
         {
             float desiredAngle = Mathf.Rad2Deg * Mathf.Atan2(MoveInput.x, MoveInput.y);
 
-            angle = Mathf.LerpAngle(angle, desiredAngle, RotationSpeed);
+            angle = Mathf.LerpAngle(angle, desiredAngle, RotationSpeed * Time.deltaTime);
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
         }
     }

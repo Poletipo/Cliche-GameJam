@@ -1,0 +1,16 @@
+Enemies with giant booty weakpoint
+
+
+Enemies are invincible except for their Weakpoint.
+
+
+TODO:
+
+	- Boss
+		- Move toward player
+		- When in range, prepare attack
+		- Lounge attack
+		- Weapon stuck in ground
+
+
+
