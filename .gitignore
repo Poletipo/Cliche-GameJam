@@ -46,6 +46,8 @@ ExportedObj/
 *.mdb
 *.opendb
 *.VC.db
+
+# Substance and Zbrush files
 *.spp
 *.zpr
 *.assbin
