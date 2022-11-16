@@ -23,6 +23,7 @@ public class Boss_01 : MonoBehaviour
 
     public float loungeAttackTime = 1;
     float startAttackTime;
+    public AnimationCurve JumpAnimCurve;
 
     public float stuckTime = 2;
     private float _stuckTimer;
@@ -106,7 +107,10 @@ public class Boss_01 : MonoBehaviour
 
 
         Vector3 groundPos = Vector3.Lerp(attackPosition, targetPosition, t);
-        groundPos.y = -Mathf.Pow((t-.5f)*2 ,2) + 1;
+
+        groundPos.y = JumpAnimCurve.Evaluate(t);
+
+        //groundPos.y = -Mathf.Pow((t-.5f)*2 ,2) + 1;
 
         transform.position = groundPos;
     }
