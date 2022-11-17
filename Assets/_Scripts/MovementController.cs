@@ -12,7 +12,7 @@ public class MovementController : MonoBehaviour
 
     public float RotationSpeed = 20;
 
-    Rigidbody _rb;
+    public Rigidbody _rb;
     private Vector2 _moveInput;
 
     private float angle = 0;
@@ -69,7 +69,6 @@ public class MovementController : MonoBehaviour
 
     public void KnockBack(Vector3 direction,float force)
     {
-        Debug.Log("KnockedBack");
         _rb.velocity = direction * force;
     }
 

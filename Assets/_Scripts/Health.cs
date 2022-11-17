@@ -62,8 +62,9 @@ public class Health : MonoBehaviour
         Hp = Hp;
     }
 
-    public int Hurt(int damageValue)
+    public bool Hurt(int damageValue)
     {
+        bool isHurt = false;
         if (!_isInvincible)
         {
             damageValue = Mathf.Max(damageValue, 0);
@@ -73,10 +74,11 @@ public class Health : MonoBehaviour
             {
                 OnHurt?.Invoke();
                 WaitInvincibleFrames(InvincibleTime);
+                isHurt = true;
             }
         }
 
-        return Hp;
+        return isHurt;
     }
 
     public int Heal(int healValue)

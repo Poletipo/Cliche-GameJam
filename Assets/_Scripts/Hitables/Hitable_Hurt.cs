@@ -15,11 +15,11 @@ public class Hitable_Hurt : IHitable
 
     public override void Hit(HitterValue value)
     {
-        Hp.Hurt(value.dmg);
-
-        StartFlash();
-        Debug.Log("Fuck me");
-
+        bool isHurt = Hp.Hurt(value.dmg);
+        if (isHurt)
+        {
+            StartFlash();
+        }
     }
 
     private void StartFlash()

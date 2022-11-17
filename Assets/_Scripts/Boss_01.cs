@@ -13,8 +13,14 @@ public class Boss_01 : MonoBehaviour
         PrepareAttack,
         Attacking,
         Stuck,
-        Stunned
+        Stunned,
+        Hit,
+        Dead
     }
+
+
+    public float minChaseTime = 3;
+    private float _chaseTimerStart;
 
 
     public float AttackDistance = 5;
@@ -28,19 +34,24 @@ public class Boss_01 : MonoBehaviour
     public float stuckTime = 2;
     private float _stuckTimer;
 
-
     float startTime = 1;
     float startTimer = 0;
 
+    public AnimationCurve KnockBackCurve;
+    public float knockBackDistance = 1.5f;
+    public float knockBackTime = 0.5f;
+    private float knockBackStartTime;
+
 
     public Boss_01States currentState = Boss_01States.Idle;
-
-
+    private Vector3 knockBackDirection;
     public GameObject player;
+    [SerializeField]
+    private Health _health;
 
     MovementController _mc;
 
-    private Vector3 attackPosition;
+    private Vector3 previousPosition;
     private Vector3 targetPosition;
 
 
@@ -50,6 +61,27 @@ public class Boss_01 : MonoBehaviour
     {
         _mc = GetComponent<MovementController>();
         startTimer = Time.time;
+
+
+        _health.OnDeath += OnDeath;
+        _health.OnHurt += OnHurt;
+
+    }
+
+    private void OnDeath()
+    {
+        Destroy(gameObject);
+    }
+
+    private void OnHurt()
+    {
+        currentState = Boss_01States.Hit;
+        knockBackDirection = (transform.position - player.transform.position).normalized;
+
+        previousPosition = transform.position;
+
+        targetPosition = previousPosition + (knockBackDirection * knockBackDistance);
+        knockBackStartTime = Time.time;
     }
 
     // Update is called once per frame
@@ -73,17 +105,44 @@ public class Boss_01 : MonoBehaviour
             case Boss_01States.Stuck:
                 StuckState();
                 break;
-
+            case Boss_01States.Hit:
+                HitState();
+                break;
             default:
                 break;
         }
 
+    }
+    private void OnDestroy()
+    {
+        _health.OnHurt -= OnHurt;
+        _health.OnDeath -= OnDeath;
+    }
+
+    private void HitState()
+    {
+
+        float t = Mathf.Clamp01((Time.time - knockBackStartTime) / knockBackTime);
+
+
+        if (t >= 1)
+        {
+            startTimer = Time.time;
+            currentState = Boss_01States.Idle;
+            return;
+        }
+
+        t = KnockBackCurve.Evaluate(t);
+
+        Vector3 pos = Vector3.Lerp(previousPosition, targetPosition, t);
+        _mc._rb.MovePosition(pos);
     }
 
     private void StuckState()
     {
         if (_stuckTimer + stuckTime < Time.time)
         {
+            _chaseTimerStart = Time.time;
             currentState = Boss_01States.Chase;
             return;
         }
@@ -94,7 +153,6 @@ public class Boss_01 : MonoBehaviour
 
         float t = Mathf.Clamp01((Time.time - startAttackTime) / loungeAttackTime);
 
-
         if(t >= 1)
         {
             _stuckTimer = Time.time;
@@ -102,12 +160,7 @@ public class Boss_01 : MonoBehaviour
             return;
         }
 
-        //ax2 + 1;
-
-
-
-        Vector3 groundPos = Vector3.Lerp(attackPosition, targetPosition, t);
-
+        Vector3 groundPos = Vector3.Lerp(previousPosition, targetPosition, t);
         groundPos.y = JumpAnimCurve.Evaluate(t);
 
         //groundPos.y = -Mathf.Pow((t-.5f)*2 ,2) + 1;
@@ -121,6 +174,7 @@ public class Boss_01 : MonoBehaviour
         if(startTime + startTimer < Time.time)
         {
             currentState = Boss_01States.Chase;
+            _chaseTimerStart = Time.time;
             return;
         }
     }
@@ -131,8 +185,8 @@ public class Boss_01 : MonoBehaviour
         if (_prepareTimer + PrepareTime < Time.time)
         {
             startAttackTime = Time.time;
-            attackPosition = transform.position;
-            attackPosition.y = 0;
+            previousPosition = transform.position;
+            previousPosition.y = 0;
             currentState = Boss_01States.Attacking;
             return;
         }
@@ -143,7 +197,7 @@ public class Boss_01 : MonoBehaviour
 
         //Change state possibilities
         float distance = Vector3.Distance(player.transform.position, transform.position);
-        if(distance <= AttackDistance)
+        if(_chaseTimerStart + minChaseTime < Time.time && distance <= AttackDistance)
         {
 
             targetPosition = player.transform.position;
