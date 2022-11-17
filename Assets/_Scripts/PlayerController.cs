@@ -11,9 +11,12 @@ public class PlayerController : MonoBehaviour
     MovementController _mc;
     [SerializeField]
     IHitter hitter;
+    [SerializeField]
+    Interacter _interacter;
 
     [SerializeField]
     PlayerAnimCtrl playerAnimCtrl;
+    public int keycount = 0;
 
 
     // Start is called before the first frame update
@@ -25,7 +28,19 @@ public class PlayerController : MonoBehaviour
         _myInput.Player.Move.canceled += OnMoveStop;
 
         _myInput.Player.Fire.performed += OnAttack;
+        _myInput.Player.Interact.performed += OnInteract;
+
+
         _myInput.Enable();
+    }
+
+    private void OnInteract(InputAction.CallbackContext obj)
+    {
+        if ( _interacter.InteractInRange)
+        {
+            Debug.Log("Interact");
+            _interacter.Interactable.Interact(this);
+        }
     }
 
     private void OnAttack(InputAction.CallbackContext obj)
