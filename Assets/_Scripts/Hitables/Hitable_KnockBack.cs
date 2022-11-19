@@ -11,7 +11,7 @@ public class Hitable_KnockBack : IHitable
 
         Vector3 direction = value.hitter.HitterSource.transform.position - transform.position ;
 
-        value.hitter.HitterSource.GetComponent<MovementController>().KnockBack(direction);
+        value.hitter.HitterSource.GetComponentInParent<MovementController>().KnockBack(direction);
 
 
     }

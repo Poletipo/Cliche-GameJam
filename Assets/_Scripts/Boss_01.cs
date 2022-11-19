@@ -35,8 +35,8 @@ public class Boss_01 : MonoBehaviour
     public float stuckTime = 2;
     private float _stuckTimer;
 
-    float startTime = 1;
-    float startTimer = 0;
+    float IdleTime = 1;
+    float _idleStartTime= 0;
 
     public float knockBackTime = 0.5f;
     private float knockBackStartTime;
@@ -80,7 +80,7 @@ public class Boss_01 : MonoBehaviour
     void Start()
     {
         _mc = GetComponent<MovementController>();
-        startTimer = Time.time;
+        _idleStartTime = Time.time;
 
 
         _health.OnDeath += OnDeath;
@@ -102,6 +102,7 @@ public class Boss_01 : MonoBehaviour
 
     private void OnHurt()
     {
+        _mc.MoveInput = Vector2.zero;
         CurrentState = Boss_01States.Hurt;
 
         knockBackStartTime = Time.time;
@@ -129,7 +130,7 @@ public class Boss_01 : MonoBehaviour
                 StuckState();
                 break;
             case Boss_01States.Hurt:
-                HitState();
+                HurtState();
                 break;
             default:
                 break;
@@ -142,12 +143,12 @@ public class Boss_01 : MonoBehaviour
         _health.OnDeath -= OnDeath;
     }
 
-    private void HitState()
+    private void HurtState()
     {
         float t = Mathf.Clamp01((Time.time - knockBackStartTime) / knockBackTime);
         if (t >= 1)
         {
-            startTimer = Time.time;
+            _idleStartTime = Time.time;
             CurrentState = Boss_01States.Idle;
             return;
         }
@@ -185,7 +186,7 @@ public class Boss_01 : MonoBehaviour
 
     private void IdleState()
     {
-        if (startTime + startTimer < Time.time)
+        if (IdleTime + _idleStartTime < Time.time)
         {
             CurrentState = Boss_01States.Chase;
             _chaseTimerStart = Time.time;
