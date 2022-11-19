@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,10 +6,37 @@ using UnityEngine;
 public class IHitter : MonoBehaviour
 {
 
+    public Action OnHit;
+
+    public bool needRefresh = false;
+    public float RefreshTimer = 1;
+    private float _refreshTimeStart;
+
     public GameObject HitterSource;
 
+    [SerializeField]
     bool _isActivated = false;
     List<Collider> collidersList = new List<Collider>();
+
+
+    private void Start()
+    {
+        _refreshTimeStart = Time.time;
+    }
+
+
+    private void Update()
+    {
+        if (needRefresh)
+        {
+            if(RefreshTimer + _refreshTimeStart < Time.time)
+            {
+                collidersList.Clear();
+                _refreshTimeStart = Time.time;
+            }
+        }
+    }
+
 
     public void Activate()
     {
@@ -30,15 +58,14 @@ public class IHitter : MonoBehaviour
 
             if(hitable != null && !collidersList.Contains(collider))
             {
-                collidersList.Add(collider);
 
+                collidersList.Add(collider);
                 Hit(hitable);
 
             }
         }
 
     }
-
 
     private void Hit(IHitable hitable)
     {
@@ -47,9 +74,8 @@ public class IHitter : MonoBehaviour
         value.hitter = this;
 
         hitable.Hit(value);
-        Debug.Log($"{hitable.name} is hurt");
+
+        OnHit?.Invoke();
     }
-
-
 
 }

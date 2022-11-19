@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,6 +43,36 @@ public class MovementController : MonoBehaviour
             HandleMovement();
             HandleRotation();
         }
+            HandleKnockback();
+    }
+
+    private bool isKnockedback = false;
+    public AnimationCurve KnockBackCurve;
+    public float knockBackForce = 10f;
+    public float knockBackTime = 0.5f;
+    private float knockBackStartTime;
+    private Vector3 knockbackDirection;
+
+    private void HandleKnockback()
+    {
+        if (isKnockedback)
+        {
+
+            float t = Mathf.Clamp01((Time.time - knockBackStartTime) / knockBackTime);
+
+            if (t >= 1 || (_rb.velocity.sqrMagnitude < 0.2f && t >= .5f) )
+            {
+                isKnockedback = false;
+                IsEnabled = true;
+                return;
+            }
+
+            t = KnockBackCurve.Evaluate(t);
+            t = 1 - t;
+
+            _rb.velocity = knockbackDirection * t * knockBackForce;
+        }
+
     }
 
     private void HandleMovement()
@@ -67,9 +98,12 @@ public class MovementController : MonoBehaviour
         }
     }
 
-    public void KnockBack(Vector3 direction,float force)
+    public void KnockBack(Vector3 direction)
     {
-        _rb.velocity = direction * force;
+        knockBackStartTime = Time.time;
+        knockbackDirection = direction;
+        isKnockedback = true;
+        IsEnabled = false;
     }
 
 

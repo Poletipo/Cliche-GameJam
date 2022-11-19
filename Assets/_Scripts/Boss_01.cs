@@ -14,7 +14,8 @@ public class Boss_01 : MonoBehaviour
         Attacking,
         Stuck,
         Stunned,
-        Hit,
+        Hurt,
+        TargetHurt,
         Dead
     }
 
@@ -37,20 +38,39 @@ public class Boss_01 : MonoBehaviour
     float startTime = 1;
     float startTimer = 0;
 
-    public AnimationCurve KnockBackCurve;
-    public float knockBackDistance = 1.5f;
     public float knockBackTime = 0.5f;
     private float knockBackStartTime;
 
 
-    public Boss_01States currentState = Boss_01States.Idle;
-    private Vector3 knockBackDirection;
+
+    private Boss_01States _currenState = Boss_01States.Idle;
+
+    public Boss_01States CurrentState
+    {
+        get { return _currenState; }
+        set { 
+
+            if(value == Boss_01States.Chase)
+            {
+                hitter.Activate();
+            }
+            else if(value == Boss_01States.Stuck)
+            {
+                hitter.Deactivate();
+            }
+
+            _currenState = value; 
+        }
+    }
+
     public GameObject player;
     [SerializeField]
     private Health _health;
 
-    MovementController _mc;
 
+    public IHitter hitter;
+
+    MovementController _mc;
     private Vector3 previousPosition;
     private Vector3 targetPosition;
 
@@ -66,6 +86,13 @@ public class Boss_01 : MonoBehaviour
         _health.OnDeath += OnDeath;
         _health.OnHurt += OnHurt;
 
+        hitter.Activate();
+        hitter.OnHit += OnTargetHit;
+    }
+
+    private void OnTargetHit()
+    {
+        hitter.Deactivate();
     }
 
     private void OnDeath()
@@ -75,19 +102,15 @@ public class Boss_01 : MonoBehaviour
 
     private void OnHurt()
     {
-        currentState = Boss_01States.Hit;
-        knockBackDirection = (transform.position - player.transform.position).normalized;
+        CurrentState = Boss_01States.Hurt;
 
-        previousPosition = transform.position;
-
-        targetPosition = previousPosition + (knockBackDirection * knockBackDistance);
         knockBackStartTime = Time.time;
     }
 
     // Update is called once per frame
     void Update()
     {
-        switch (currentState)
+        switch (CurrentState)
         {
 
             case Boss_01States.Idle:
@@ -105,7 +128,7 @@ public class Boss_01 : MonoBehaviour
             case Boss_01States.Stuck:
                 StuckState();
                 break;
-            case Boss_01States.Hit:
+            case Boss_01States.Hurt:
                 HitState();
                 break;
             default:
@@ -121,21 +144,13 @@ public class Boss_01 : MonoBehaviour
 
     private void HitState()
     {
-
         float t = Mathf.Clamp01((Time.time - knockBackStartTime) / knockBackTime);
-
-
         if (t >= 1)
         {
             startTimer = Time.time;
-            currentState = Boss_01States.Idle;
+            CurrentState = Boss_01States.Idle;
             return;
         }
-
-        t = KnockBackCurve.Evaluate(t);
-
-        Vector3 pos = Vector3.Lerp(previousPosition, targetPosition, t);
-        _mc._rb.MovePosition(pos);
     }
 
     private void StuckState()
@@ -143,7 +158,7 @@ public class Boss_01 : MonoBehaviour
         if (_stuckTimer + stuckTime < Time.time)
         {
             _chaseTimerStart = Time.time;
-            currentState = Boss_01States.Chase;
+            CurrentState = Boss_01States.Chase;
             return;
         }
     }
@@ -156,7 +171,7 @@ public class Boss_01 : MonoBehaviour
         if(t >= 1)
         {
             _stuckTimer = Time.time;
-            currentState = Boss_01States.Stuck;
+            CurrentState = Boss_01States.Stuck;
             return;
         }
 
@@ -170,10 +185,9 @@ public class Boss_01 : MonoBehaviour
 
     private void IdleState()
     {
-        
-        if(startTime + startTimer < Time.time)
+        if (startTime + startTimer < Time.time)
         {
-            currentState = Boss_01States.Chase;
+            CurrentState = Boss_01States.Chase;
             _chaseTimerStart = Time.time;
             return;
         }
@@ -187,7 +201,7 @@ public class Boss_01 : MonoBehaviour
             startAttackTime = Time.time;
             previousPosition = transform.position;
             previousPosition.y = 0;
-            currentState = Boss_01States.Attacking;
+            CurrentState = Boss_01States.Attacking;
             return;
         }
     }
@@ -206,14 +220,10 @@ public class Boss_01 : MonoBehaviour
 
             _mc.MoveInput = Vector2.zero;
 
-            currentState = Boss_01States.PrepareAttack;
+            CurrentState = Boss_01States.PrepareAttack;
             _prepareTimer = Time.time;
             return;
         }
-
-
-
-
 
         Vector3 direction = player.transform.position - transform.position;
         Vector2 directionInput = new Vector2(direction.x, direction.z).normalized;

@@ -17,7 +17,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     PlayerAnimCtrl playerAnimCtrl;
     public int keycount = 0;
-
+    [SerializeField]
+    private Health _health;
 
     // Start is called before the first frame update
     void Start()
@@ -30,8 +31,14 @@ public class PlayerController : MonoBehaviour
         _myInput.Player.Fire.performed += OnAttack;
         _myInput.Player.Interact.performed += OnInteract;
 
-
         _myInput.Enable();
+
+        _health.OnHurt += OnHurt;
+    }
+
+    private void OnHurt()
+    {
+        //
     }
 
     private void OnInteract(InputAction.CallbackContext obj)
