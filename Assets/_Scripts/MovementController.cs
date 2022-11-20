@@ -6,7 +6,21 @@ using UnityEngine;
 public class MovementController : MonoBehaviour
 {
 
-    public bool IsEnabled = true;
+    private bool _isEnabled = true;
+
+    public bool IsEnabled
+    {
+        get { return _isEnabled; }
+        set {
+            if (!value)
+            {
+                MoveInput = Vector2.zero;
+                _rb.velocity = Vector3.zero;
+            }
+
+            _isEnabled = value; 
+        }
+    }
 
     public float MaxSpeed = 5;
     public float Acceleration = 1;
@@ -48,8 +62,8 @@ public class MovementController : MonoBehaviour
 
     private bool isKnockedback = false;
     public AnimationCurve KnockBackCurve;
-    public float knockBackForce = 10f;
-    public float knockBackTime = 0.5f;
+    private float knockBackForce = 10f;
+    private float knockBackTime = 0.5f;
     private float knockBackStartTime;
     private Vector3 knockbackDirection;
 
@@ -98,8 +112,11 @@ public class MovementController : MonoBehaviour
         }
     }
 
-    public void KnockBack(Vector3 direction)
+    public void KnockBack(Vector3 direction,float force, float time)
     {
+        knockBackForce = force;
+        knockBackTime = time;
+
         knockBackStartTime = Time.time;
         knockbackDirection = direction;
         isKnockedback = true;

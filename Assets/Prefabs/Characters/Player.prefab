@@ -59,7 +59,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13aa6ccbf54d8d84bb2a57d887456691, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  needRefresh: 0
+  RefreshTimer: 1
+  knockbackForce: 10
+  knockbackTime: 0.5
   HitterSource: {fileID: 1065365729180294544}
+  _isActivated: 0
 --- !u!1 &1065365729180294544
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,7 +149,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mc: {fileID: 146817435459845847}
   hitter: {fileID: 146817434447819357}
+  _interacter: {fileID: 0}
   playerAnimCtrl: {fileID: 146817435459845851}
+  keycount: 0
+  _health: {fileID: 0}
+  DeadSpawn: {fileID: 0}
+  _meshRenderer: {fileID: 0}
+  _collider: {fileID: 0}
 --- !u!114 &146817435459845847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,11 +168,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1156e0e37ea33e64a9b69c67632185b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsEnabled: 1
   MaxSpeed: 4
   Acceleration: 1
   RotationSpeed: 10
+  _rb: {fileID: 0}
   Velocity: {x: 0, y: 0, z: 0}
+  KnockBackCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &146817435459845851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,9 +206,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Hp: {fileID: 8946036788006263134}
-  MeshRenderer: {fileID: 0}
-  flashTimer: 0.1
-  FlashColor: {r: 0, g: 0, b: 0, a: 0}
+  flash: {fileID: 0}
+  _mc: {fileID: 0}
 --- !u!114 &8946036788006263134
 MonoBehaviour:
   m_ObjectHideFlags: 0

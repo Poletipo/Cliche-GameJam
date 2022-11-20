@@ -11,13 +11,15 @@ public class Flash : MonoBehaviour
     private float flashStart;
     private bool isFlashing = false;
     public Color FlashColor;
+    private Color[] previousColor;
 
     private void Start()
     {
-
-        foreach (Renderer item in MeshRendererList)
+        previousColor = new Color[MeshRendererList.Length];
+        for (int i = 0; i < MeshRendererList.Length; i++)
         {
-            item.material.EnableKeyword("_EMISSION");
+            MeshRendererList[i].material.EnableKeyword("_EMISSION");
+            previousColor[i] = MeshRendererList[i].material.GetColor("_EmissionColor");
         }
     }
 
@@ -45,9 +47,11 @@ public class Flash : MonoBehaviour
     public void StopFlash()
     {
         isFlashing = false;
-        foreach (Renderer item in MeshRendererList)
+
+        for (int i = 0; i < MeshRendererList.Length; i++)
         {
-            item.material.SetColor("_EmissionColor", Color.black);
+            MeshRendererList[i].material.SetColor("_EmissionColor", previousColor[i]);
         }
+
     }
 }

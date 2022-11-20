@@ -10,6 +10,8 @@ public class IHitter : MonoBehaviour
 
     public bool needRefresh = false;
     public float RefreshTimer = 1;
+    public float knockbackForce = 10;
+    public float knockbackTime = 1;
     private float _refreshTimeStart;
 
     public GameObject HitterSource;
@@ -72,6 +74,8 @@ public class IHitter : MonoBehaviour
         IHitable.HitterValue value = new IHitable.HitterValue();
         value.dmg = 1;
         value.hitter = this;
+        value.force = knockbackForce;
+        value.knockTime = knockbackTime;
 
         hitable.Hit(value);
 

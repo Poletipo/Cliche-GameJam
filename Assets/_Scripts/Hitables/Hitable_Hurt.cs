@@ -20,7 +20,7 @@ public class Hitable_Hurt : IHitable
             knockBackDirection.y = 0;
             knockBackDirection.Normalize();
 
-            _mc.KnockBack(knockBackDirection);
+            _mc.KnockBack(knockBackDirection, value.force,value.knockTime);
         }
     }
 }

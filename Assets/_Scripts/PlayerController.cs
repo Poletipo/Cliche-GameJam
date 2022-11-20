@@ -6,6 +6,26 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public enum PlayerState
+    {
+        Alive,
+        Dead,
+        InCutscene
+    }
+
+    public Action OnPlayerStateChanged;
+
+    PlayerState _currentState = PlayerState.Alive;
+
+    public PlayerState CurrentState
+    {
+        get { return _currentState; }
+        set { 
+            _currentState = value;
+            OnPlayerStateChanged?.Invoke();
+        }
+    }
+
     Cliche_InputAction _myInput;
     [SerializeField]
     MovementController _mc;
@@ -19,6 +39,14 @@ public class PlayerController : MonoBehaviour
     public int keycount = 0;
     [SerializeField]
     private Health _health;
+
+    [SerializeField]
+    private GameObject DeadSpawn;
+    [SerializeField]
+    private Renderer _meshRenderer;
+    [SerializeField]
+    private Collider _collider;
+
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +62,17 @@ public class PlayerController : MonoBehaviour
         _myInput.Enable();
 
         _health.OnHurt += OnHurt;
+        _health.OnDeath += OnDeath;
+    }
+
+    private void OnDeath()
+    {
+        _meshRenderer.enabled = false;
+        _mc.IsEnabled = false;
+        _mc.enabled = false;
+        _collider.enabled = false;
+        Instantiate(DeadSpawn, transform.position, transform.rotation);
+        CurrentState = PlayerState.Dead;
     }
 
     private void OnHurt()

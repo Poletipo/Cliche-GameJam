@@ -9,6 +9,8 @@ public abstract class IHitable : MonoBehaviour
     {
         public int dmg;
         public IHitter hitter;
+        public float force;
+        public float knockTime;
     }
 
     public abstract void Hit(HitterValue value);
