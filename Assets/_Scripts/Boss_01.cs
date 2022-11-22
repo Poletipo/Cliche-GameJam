@@ -63,7 +63,7 @@ public class Boss_01 : MonoBehaviour
         }
     }
 
-    public GameObject player;
+    private GameObject player;
     [SerializeField]
     private Health _health;
 
@@ -88,6 +88,9 @@ public class Boss_01 : MonoBehaviour
 
         hitter.Activate();
         hitter.OnHit += OnTargetHit;
+
+        player = GameManager.Instance.Player;
+
     }
 
     private void OnTargetHit()
