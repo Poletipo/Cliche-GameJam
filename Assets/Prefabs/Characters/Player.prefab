@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 146817434447819355}
   - component: {fileID: 146817434447819356}
   - component: {fileID: 146817434447819357}
+  - component: {fileID: 565499466}
   m_Layer: 0
   m_Name: HitZone
   m_TagString: Untagged
@@ -65,6 +66,19 @@ MonoBehaviour:
   knockbackTime: 0.5
   HitterSource: {fileID: 1065365729180294544}
   _isActivated: 0
+--- !u!114 &565499466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 146817434447819354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dda06719de56974c8b5c503b331c8b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InteractInRange: 0
 --- !u!1 &1065365729180294544
 GameObject:
   m_ObjectHideFlags: 0
@@ -81,9 +95,9 @@ GameObject:
   - component: {fileID: 146817435459845851}
   - component: {fileID: 3392154178603286366}
   - component: {fileID: 8946036788006263134}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -119,7 +133,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!136 &146817435459845845
 CapsuleCollider:
@@ -131,7 +145,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 0.45
   m_Height: 1.5
   m_Direction: 1
   m_Center: {x: 0, y: 0.75, z: 0}
@@ -149,13 +163,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mc: {fileID: 146817435459845847}
   hitter: {fileID: 146817434447819357}
-  _interacter: {fileID: 0}
+  _interacter: {fileID: 565499466}
   playerAnimCtrl: {fileID: 146817435459845851}
   keycount: 0
-  _health: {fileID: 0}
-  DeadSpawn: {fileID: 0}
-  _meshRenderer: {fileID: 0}
-  _collider: {fileID: 0}
+  _health: {fileID: 8946036788006263134}
+  DeadSpawn: {fileID: 6313932435671916861, guid: 239397d157c4b9d48839d2377145db53,
+    type: 3}
+  _meshRenderer: {fileID: 3264147222971297419}
+  _collider: {fileID: 146817435459845845}
 --- !u!114 &146817435459845847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,7 +190,25 @@ MonoBehaviour:
   Velocity: {x: 0, y: 0, z: 0}
   KnockBackCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -206,8 +239,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Hp: {fileID: 8946036788006263134}
-  flash: {fileID: 0}
-  _mc: {fileID: 0}
+  flash: {fileID: 321506401}
+  _mc: {fileID: 146817435459845847}
 --- !u!114 &8946036788006263134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,7 +253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ee9aa89d6e75884e80cd63e1c1ceec8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InvincibleTime: 1
+  InvincibleTime: 0.5
   _maxHp: 3
   _hp: 3
 --- !u!1001 &146817434124309077
@@ -1112,3 +1145,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitter: {fileID: 146817434447819357}
+--- !u!137 &3264147222971297419 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -5817228812595200802, guid: 59e0928745608d148812cf4ac9a7ac44,
+    type: 3}
+  m_PrefabInstance: {fileID: 146817434124309077}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6571557504152131422 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -2793563182258846453, guid: 59e0928745608d148812cf4ac9a7ac44,
+    type: 3}
+  m_PrefabInstance: {fileID: 146817434124309077}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &321506401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6571557504152131422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16be634008630a14e81614f920740ee5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MeshRendererList:
+  - {fileID: 3264147222971297419}
+  flashTimer: 0.2
+  FlashColor: {r: 1, g: 0, b: 0, a: 0}

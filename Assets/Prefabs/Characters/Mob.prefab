@@ -61,6 +61,7 @@ GameObject:
   - component: {fileID: 5591703853776981924}
   - component: {fileID: 5591703853776981922}
   - component: {fileID: 2063565376}
+  - component: {fileID: 1797787845676044007}
   m_Layer: 9
   m_Name: Mob
   m_TagString: Untagged
@@ -111,8 +112,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InvincibleTime: 1
-  _maxHp: 3
-  _hp: 3
+  _maxHp: 21
+  _hp: 21
 --- !u!114 &5591703853776981926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,8 +184,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minChaseTime: 3
   AttackDistance: 3
-  PrepareTime: 0.4
-  loungeAttackTime: 0.6
+  PrepareTime: 0.6
+  loungeAttackTime: 0.7
   JumpAnimCurve:
     serializedVersion: 2
     m_Curve:
@@ -265,6 +266,20 @@ MonoBehaviour:
   knockbackTime: 0.5
   HitterSource: {fileID: 376171260}
   _isActivated: 0
+--- !u!114 &1797787845676044007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5591703853776981932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41676edc0dc3f4044b10f372d73e9c4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 4979078800505092100}
+  mob: {fileID: 5591703853776981924}
 --- !u!1001 &4263003400109599908
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -346,6 +361,26 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4263003400109599908}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &4979078800505092100
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4028560921866375669}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 65858074c9be3574186ac9846e632360, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &4390008593148606454
 MonoBehaviour:
   m_ObjectHideFlags: 0

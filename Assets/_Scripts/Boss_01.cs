@@ -19,6 +19,8 @@ public class Boss_01 : MonoBehaviour
         Dead
     }
 
+    public Action OnStateChanged;
+
 
     public float minChaseTime = 3;
     private float _chaseTimerStart;
@@ -60,6 +62,7 @@ public class Boss_01 : MonoBehaviour
             }
 
             _currenState = value; 
+            OnStateChanged?.Invoke();
         }
     }
 

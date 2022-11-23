@@ -74,7 +74,7 @@ public class MovementController : MonoBehaviour
 
             float t = Mathf.Clamp01((Time.time - knockBackStartTime) / knockBackTime);
 
-            if (t >= 1 || (_rb.velocity.sqrMagnitude < 0.2f && t >= .5f) )
+            if (t >= 1 || (_rb.velocity.sqrMagnitude < 0.2f && t >= (knockBackTime/2)) )
             {
                 isKnockedback = false;
                 IsEnabled = true;
