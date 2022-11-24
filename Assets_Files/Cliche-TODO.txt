@@ -5,12 +5,18 @@ Enemies are invincible except for their Weakpoint.
 
 
 TODO:
+	
+	- Sound Effect
+	- Music
+	- Die and restart (or something else)
+	- Interact UI visual
+	- Health UI
+	- Key UI
+	- Start and end of level
 
-	- Boss
-		- Move toward player
-		- When in range, prepare attack
-		- Lounge attack
-		- Weapon stuck in ground
-
-
+WISH:
+	- Boss battle
+	- Second Enemy
+	- Fix Attack trough things
+	- Cavern visuals environment
 

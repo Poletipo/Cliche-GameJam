@@ -42,6 +42,7 @@ public class Boss_01 : MonoBehaviour
 
     public float knockBackTime = 0.5f;
     private float knockBackStartTime;
+    public GameObject DeathParticle;
 
 
 
@@ -103,6 +104,7 @@ public class Boss_01 : MonoBehaviour
 
     private void OnDeath()
     {
+        Instantiate(DeathParticle, transform.position + (Vector3.up*.5f), Quaternion.identity);
         Destroy(gameObject);
     }
 

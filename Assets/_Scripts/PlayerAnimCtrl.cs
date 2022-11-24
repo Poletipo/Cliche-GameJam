@@ -20,4 +20,10 @@ public class PlayerAnimCtrl : MonoBehaviour
     }
 
 
+    public void HurtAnim()
+    {
+        animator.SetTrigger("Hurt");
+    }
+
+
 }

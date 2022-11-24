@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnHurt()
     {
-        //
+        playerAnimCtrl.HurtAnim();
     }
 
     private void OnInteract(InputAction.CallbackContext obj)

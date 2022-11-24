@@ -112,8 +112,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InvincibleTime: 1
-  _maxHp: 21
-  _hp: 21
+  _maxHp: 5
+  _hp: 5
 --- !u!114 &5591703853776981926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,6 +230,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   stuckTime: 1.3
   knockBackTime: 0.5
+  DeathParticle: {fileID: 664041309615286585, guid: e840fd497e5d02c4e9cb7b863f3409bf,
+    type: 3}
   _health: {fileID: 5591703853776981925}
   hitter: {fileID: 2063565376}
 --- !u!54 &5591703853776981922
