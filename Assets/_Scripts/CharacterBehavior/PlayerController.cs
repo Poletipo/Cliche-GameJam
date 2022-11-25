@@ -36,7 +36,21 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     PlayerAnimCtrl playerAnimCtrl;
-    public int keycount = 0;
+
+
+
+    public Action OnKeyCountChanged;
+
+    private int _keyCount = 0;
+    public int Keycount
+    {
+        get { return _keyCount; }
+        set { 
+            _keyCount = value;
+            OnKeyCountChanged?.Invoke();
+        }
+    }
+
     [SerializeField]
     private Health _health;
 

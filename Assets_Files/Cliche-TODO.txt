@@ -6,12 +6,11 @@ Enemies are invincible except for their Weakpoint.
 
 TODO:
 	
-	- Sound Effect
-	- Music
 	- Die and restart (or something else)
 	- Interact UI visual
-	- Key UI
 	- Start and end of level
+	- Sound Effect
+	- Music
 
 FIXES:
 	- Hurt anim after Attack

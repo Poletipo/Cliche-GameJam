@@ -6,7 +6,7 @@ public class PickableKey : PickableItem
 {
     public override void Collect(PlayerController playerController)
     {
-        playerController.keycount++;
+        playerController.Keycount++;
         Destroy(gameObject);
     }
 

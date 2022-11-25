@@ -2,11 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameUI : MonoBehaviour
 {
 
     GameObject _player;
+    PlayerController _playerCtrl;
     Health _health;
 
 
@@ -14,7 +16,8 @@ public class GameUI : MonoBehaviour
     Transform _healthContainer;
     [SerializeField]
     GameObject _heartSprite;
-
+    [SerializeField]
+    TextMeshProUGUI keyCountTxt;
     bool lastHeart = false;
     private Animation anim;
 
@@ -26,12 +29,27 @@ public class GameUI : MonoBehaviour
         _health.OnHurt += OnHurt;
         _health.OnHeal += OnHeal;
 
+        _playerCtrl = _player.GetComponent<PlayerController>();
+
+        _playerCtrl.OnKeyCountChanged += OnKeyCountChanged;
+
+
+
+        if(_healthContainer.childCount > 0)
+        {
+            Destroy(_healthContainer.GetChild(0).gameObject);
+        }
 
         for (int i = 0; i < _health.Hp; i++)
         {
             SpawnHeartSprite();
         }
 
+    }
+
+    private void OnKeyCountChanged()
+    {
+        keyCountTxt.text = _playerCtrl.Keycount.ToString();
     }
 
     private void OnHeal()

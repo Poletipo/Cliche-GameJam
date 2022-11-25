@@ -26,9 +26,9 @@ public class LockedDoor : Interactable
 
     public override bool Interact(PlayerController player)
     {
-        if(currentState == DoorState.Locked && player.keycount > 0)
+        if(currentState == DoorState.Locked && player.Keycount > 0)
         {
-            player.keycount--;
+            player.Keycount--;
             UnlockDoor(player);
             return true;
         }
