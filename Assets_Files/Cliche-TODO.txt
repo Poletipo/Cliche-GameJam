@@ -10,11 +10,16 @@ TODO:
 	- Music
 	- Die and restart (or something else)
 	- Interact UI visual
-	- Health UI
 	- Key UI
 	- Start and end of level
 
+FIXES:
+	- Hurt anim after Attack
+	- Mob stay "jump prepare" after taking hit
+	- Mob stop hurting player after one time
+
 WISH:
+	- Slap Vfx
 	- Boss battle
 	- Second Enemy
 	- Fix Attack trough things

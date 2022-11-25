@@ -2,15 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickableItem : MonoBehaviour
+public abstract class PickableItem : MonoBehaviour
 {
 
-    public void Collect(PlayerController playerController)
-    {
-
-        playerController.keycount++;
-        Destroy(gameObject);
-    }
+    public abstract void Collect(PlayerController playerController);
 
 
     // Start is called before the first frame update
