@@ -73,11 +73,33 @@ public class PlayerController : MonoBehaviour
         _myInput.Player.Fire.performed += OnAttack;
         _myInput.Player.Interact.performed += OnInteract;
 
+        _myInput.Player.Pause.performed += OnPause;
+
         _myInput.Enable();
 
         _health.OnHurt += OnHurt;
         _health.OnDeath += OnDeath;
     }
+
+    private void OnPause(InputAction.CallbackContext obj)
+    {
+        if (obj.performed)
+        {
+            GameManager.Instance.UI.Pause();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        _myInput.Player.Move.performed -= OnMove;
+        _myInput.Player.Move.canceled -= OnMoveStop;
+
+        _myInput.Player.Fire.performed -= OnAttack;
+        _myInput.Player.Interact.performed -= OnInteract;
+
+        _myInput.Player.Pause.performed -= OnPause;
+    }
+
 
     private void OnDeath()
     {
@@ -98,7 +120,6 @@ public class PlayerController : MonoBehaviour
     {
         if ( _interacter.InteractInRange)
         {
-            Debug.Log("Interact");
             _interacter.Interactable.Interact(this);
         }
     }

@@ -13,9 +13,15 @@ public class Interacter : MonoBehaviour
 
         if(interact != null)
         {
+            if(Interactable != null)
+            {
+                Interactable.HideUI();
+            }
+
             Interactable = interact;
             InteractInRange = true;
-            Debug.Log(other.name);
+
+            Interactable.ShowUI();
         }
     }
 
@@ -25,9 +31,9 @@ public class Interacter : MonoBehaviour
 
         if(InteractInRange && interact == Interactable)
         {
+            Interactable.HideUI();
             Interactable = null;
             InteractInRange = false;
-            Debug.Log(other.name);
         }
     }
 

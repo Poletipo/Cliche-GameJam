@@ -14,14 +14,23 @@ public class LockedDoor : Interactable
 
     public AnimationCurve unlockAnimCurve;
     public float UnlockTime = 1;
+    public GameObject InteractUI;
+    public Animation anim;
     private float UnlockStartTime;
 
     DoorState currentState = DoorState.Locked;
 
     public void UnlockDoor(PlayerController player)
     {
+        //TODO: anim for interact UI
+        anim.Play("DoorUI_Unlock_Accepted");
         UnlockStartTime = Time.time;
         currentState = DoorState.Unlocked;
+    }
+
+    private void DeniedUnlock()
+    {
+        anim.Play("DoorUI_Unlock_Denied");
     }
 
     public override bool Interact(PlayerController player)
@@ -33,7 +42,14 @@ public class LockedDoor : Interactable
             return true;
         }
 
+        DeniedUnlock();
+
         return false;
+    }
+
+    public void Orientation(float angle)
+    {
+        transform.rotation = Quaternion.Euler(Vector3.up * angle);
     }
 
     private void Update()
@@ -66,5 +82,15 @@ public class LockedDoor : Interactable
         pos.y = unlockAnimCurve.Evaluate(t);
         transform.position = pos;
         
+    }
+
+    public override void ShowUI()
+    {
+        InteractUI.SetActive(true);
+    }
+
+    public override void HideUI()
+    {
+        InteractUI.SetActive(false);
     }
 }

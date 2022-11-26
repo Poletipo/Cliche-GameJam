@@ -6,5 +6,8 @@ public abstract class Interactable : MonoBehaviour
 {
 
     public abstract bool Interact(PlayerController player);
+    public abstract void ShowUI();
+    public abstract void HideUI();
+
 
 }

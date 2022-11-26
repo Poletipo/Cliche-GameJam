@@ -77,6 +77,7 @@ public class Boss_01 : MonoBehaviour
     MovementController _mc;
     private Vector3 previousPosition;
     private Vector3 targetPosition;
+    public float ChaseDistance;
 
 
 
@@ -100,6 +101,16 @@ public class Boss_01 : MonoBehaviour
     private void OnTargetHit()
     {
         hitter.Deactivate();
+        //_idleStartTime = Time.time;
+        //CurrentState = Boss_01States.Idle;
+        StartCoroutine(ReactivateHitter(1f));
+    }
+
+
+    IEnumerator ReactivateHitter(float time)
+    {
+        yield return new WaitForSeconds(time);
+        hitter.Activate();
     }
 
     private void OnDeath()
@@ -201,7 +212,8 @@ public class Boss_01 : MonoBehaviour
 
     private void IdleState()
     {
-        if (IdleTime + _idleStartTime < Time.time)
+        float distance = Vector3.Distance(player.transform.position, transform.position);
+        if (IdleTime + _idleStartTime < Time.time && distance <= ChaseDistance)
         {
             CurrentState = Boss_01States.Chase;
             _chaseTimerStart = Time.time;

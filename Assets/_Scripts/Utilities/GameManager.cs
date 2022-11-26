@@ -9,6 +9,10 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        if(_instance == null)
+        {
+            Instance.Initialize();
+        }
     }
 
     public static GameManager Instance
@@ -38,12 +42,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    [SerializeField]
     public GameObject Player;
+    public GameUI UI;
     public GameObject CameraObject { get; private set; }
     public AudioSource AudioManager { get; private set; }
-
-    public bool FirstTimeSession = true;
 
     private void Initialize()
     {
@@ -60,7 +62,21 @@ public class GameManager : MonoBehaviour
     private void OnSceneLoaded()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
+        UI = FindObjectOfType<GameUI>();
+    }
 
+
+    public void LoadLevel(int levelNumber)
+    {
+        SceneManager.LoadScene(levelNumber);
+    }
+
+    public void QuitGame()
+    {
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #endif
+            Application.Quit();
     }
 
 }

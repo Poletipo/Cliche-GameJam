@@ -51,11 +51,12 @@ public class WorldCreator : MonoBehaviour
                     GameObject gmobj = Instantiate(WorldObjects[j], pos, Quaternion.identity);
                     gmobj.transform.parent = transform;
 
-
-                    if(gmobj.GetComponent<LockedDoor>() != null && pixelColors[i+1] == Color.white)
+                    LockedDoor door = gmobj.GetComponentInChildren<LockedDoor>();
+                    if (door != null && pixelColors[i+1] == Color.white)
                     {
-                        gmobj.transform.rotation =  Quaternion.Euler(Vector3.up*90);
+                        door.Orientation(90);
                     }
+                    break;
                 }
             }
         }

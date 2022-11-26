@@ -13,13 +13,20 @@ public class GameUI : MonoBehaviour
 
 
     [SerializeField]
+    Animation NextLevel_Anim;
+    [SerializeField]
     Transform _healthContainer;
     [SerializeField]
     GameObject _heartSprite;
     [SerializeField]
     TextMeshProUGUI keyCountTxt;
+    [SerializeField]
+    GameObject _deathScreen;
+    [SerializeField]
+    GameObject _pauseScreen;
     bool lastHeart = false;
     private Animation anim;
+    private bool isPaused = false;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +35,7 @@ public class GameUI : MonoBehaviour
         _health = _player.GetComponent<Health>();
         _health.OnHurt += OnHurt;
         _health.OnHeal += OnHeal;
+        _health.OnDeath += OnDeath;
 
         _playerCtrl = _player.GetComponent<PlayerController>();
 
@@ -45,6 +53,22 @@ public class GameUI : MonoBehaviour
             SpawnHeartSprite();
         }
 
+    }
+
+    private void OnDeath()
+    {
+        StartCoroutine(OnDeathCoroutine());
+    }
+
+    private IEnumerator OnDeathCoroutine()
+    {
+        yield return new WaitForSeconds(1);
+        _deathScreen.SetActive(true);
+    }
+
+    public void Restart()
+    {
+        GameManager.Instance.LoadLevel(0);
     }
 
     private void OnKeyCountChanged()
@@ -84,6 +108,33 @@ public class GameUI : MonoBehaviour
         Instantiate(_heartSprite, _healthContainer);
     }
 
+
+    public void NextLevelTransition()
+    {
+        NextLevel_Anim.Play("Level_End");
+    }
+
+    public void Pause()
+    {
+        if (!isPaused)
+        {
+            Time.timeScale = 0;
+            _pauseScreen.SetActive(true);
+            isPaused = true;
+        }
+        else
+        {
+            Time.timeScale = 1;
+            _pauseScreen.SetActive(false);
+            isPaused = false;
+        }
+    }
+
+
+    public void QuitGame()
+    {
+        GameManager.Instance.QuitGame();
+    }
 
     // Update is called once per frame
     void Update()

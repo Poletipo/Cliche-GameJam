@@ -5,22 +5,20 @@ Enemies are invincible except for their Weakpoint.
 
 
 TODO:
-	
-	- Die and restart (or something else)
-	- Interact UI visual
 	- Start and end of level
-	- Sound Effect
-	- Music
+	- Menu
 
 FIXES:
 	- Hurt anim after Attack
 	- Mob stay "jump prepare" after taking hit
-	- Mob stop hurting player after one time
 
 WISH:
-	- Slap Vfx
 	- Boss battle
-	- Second Enemy
-	- Fix Attack trough things
 	- Cavern visuals environment
+	- Second Enemy
+	- Pot with health
+	- Music
+	- Sound Effect
+	- Slap Vfx
+	- Fix Attack trough things
 

@@ -165,7 +165,6 @@ MonoBehaviour:
   hitter: {fileID: 146817434447819357}
   _interacter: {fileID: 565499466}
   playerAnimCtrl: {fileID: 146817435459845851}
-  keycount: 0
   _health: {fileID: 8946036788006263134}
   DeadSpawn: {fileID: 6313932435671916861, guid: 239397d157c4b9d48839d2377145db53,
     type: 3}
@@ -254,8 +253,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InvincibleTime: 0.5
-  _maxHp: 3
-  _hp: 3
+  _maxHp: 16
+  _hp: 5
 --- !u!1001 &146817434124309077
 PrefabInstance:
   m_ObjectHideFlags: 0
