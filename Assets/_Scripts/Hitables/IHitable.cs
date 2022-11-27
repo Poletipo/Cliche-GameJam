@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class IHitable : MonoBehaviour
 {
+
+    public Action OnHit;
 
     public struct HitterValue
     {
@@ -14,4 +17,9 @@ public abstract class IHitable : MonoBehaviour
     }
 
     public abstract void Hit(HitterValue value);
+
+
+    public void Activate() { }
+    public void Deactivate() { }
+
 }

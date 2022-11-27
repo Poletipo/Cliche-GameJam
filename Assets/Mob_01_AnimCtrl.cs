@@ -8,7 +8,7 @@ public class Mob_01_AnimCtrl : MonoBehaviour
     [SerializeField]
     Animator _animator;
     [SerializeField]
-    Boss_01 mob;
+    Mob_01 mob;
 
     // Start is called before the first frame update
     void Start()
@@ -20,31 +20,31 @@ public class Mob_01_AnimCtrl : MonoBehaviour
     {
         switch (mob.CurrentState)
         {
-            case Boss_01.Boss_01States.Idle:
+            case Mob_01.Boss_01States.Idle:
                 _animator.SetFloat("Speed", 0);
                 break;
-            case Boss_01.Boss_01States.Chase:
+            case Mob_01.Boss_01States.Chase:
                 _animator.SetFloat("Speed", 1);
                 break;
-            case Boss_01.Boss_01States.PrepareAttack:
+            case Mob_01.Boss_01States.PrepareAttack:
                 _animator.SetTrigger("JumpAttackStart");
                 _animator.SetInteger("JumpState", 0);
                 break;
-            case Boss_01.Boss_01States.Attacking:
+            case Mob_01.Boss_01States.Attacking:
                 _animator.SetInteger("JumpState", 1);
                 break;
-            case Boss_01.Boss_01States.Stuck:
+            case Mob_01.Boss_01States.Stuck:
                 _animator.SetInteger("JumpState", 2);
                 _animator.SetFloat("Speed", 0);
                 break;
-            case Boss_01.Boss_01States.Stunned:
+            case Mob_01.Boss_01States.Stunned:
                 break;
-            case Boss_01.Boss_01States.Hurt:
+            case Mob_01.Boss_01States.Hurt:
                 _animator.SetTrigger("Hurt");
                 break;
-            case Boss_01.Boss_01States.TargetHurt:
+            case Mob_01.Boss_01States.TargetHurt:
                 break;
-            case Boss_01.Boss_01States.Dead:
+            case Mob_01.Boss_01States.Dead:
                 break;
             default:
                 break;

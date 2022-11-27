@@ -5,15 +5,14 @@ Enemies are invincible except for their Weakpoint.
 
 
 TODO:
-	- Start and end of level
-	- Menu
+	- Boss battle
+	
 
 FIXES:
 	- Hurt anim after Attack
 	- Mob stay "jump prepare" after taking hit
 
 WISH:
-	- Boss battle
 	- Cavern visuals environment
 	- Second Enemy
 	- Pot with health
