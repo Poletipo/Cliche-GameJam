@@ -5,6 +5,8 @@ Enemies are invincible except for their Weakpoint.
 
 
 TODO:
+	- Second Enemy
+	- 2 more levels
 	
 FIXES:
 	- Hurt anim after Attack (reset trigger when hurt)
@@ -15,7 +17,6 @@ WISH:
 	- Win Screen anim
 	- Better Visual
 		- Cavern visuals environment
-	- Second Enemy
 	- Boss battle
 		- Intro anim
 	- Pot with health
