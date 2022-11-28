@@ -7,39 +7,68 @@ public class AttackState : BossState
     [SerializeField]
     Animator _animator;
 
-    public int attackCount = 2;
-    int attackCounter = 0;
+    [SerializeField]
+    Health _health;
 
-
-    public IHitter[] hitters;
-
-    public float AttackTime = 3;
-    float _startAttackTime;
     [SerializeField]
     IdleState _idleState;
     [SerializeField]
     BlockState _blockState;
 
-    public override void EnterState(BossState previousState)
+    public int AttackCount = 2;
+    int attackCounter = 0;
+
+    public IHitter[] hitters;
+    public string[] attackAnimName;
+
+
+    private int _randomAttack = 0;
+    private bool isAttackDone = false;
+
+    private void Start()
     {
-        Debug.Log("aTTACK");
-        _animator.CrossFade("RIG_Boss_01|Boss_Attack_01", 0.2f);
+        for (int i = 0; i < hitters.Length; i++)
+        {
+            hitters[i].OnHit += OnTargetHit;
+        }
+
+        _health.OnHurt += OnHurt;
+    }
+
+    private void OnHurt()
+    {
+        AttackCount += 3;
+    }
+
+    private void OnTargetHit()
+    {
 
         for (int i = 0; i < hitters.Length; i++)
         {
-            hitters[i].Activate();
+            hitters[i].Deactivate();
         }
 
-        _startAttackTime = Time.time;
+        attackCounter--;
+        isAttackDone = true;
+    }
+    public void AnimationOver()
+    {
+        isAttackDone = true;
+    }
+
+    public override void EnterState(BossState previousState)
+    {
+
+        _randomAttack = Random.Range(0, attackAnimName.Length);
+        _animator.CrossFade(attackAnimName[_randomAttack], 0.2f);
     }
 
     public override BossState UpdateState()
     {
-        if (_startAttackTime + AttackTime <= Time.time)
+        if (isAttackDone)
         {
-
             attackCounter++;
-            if(attackCounter >= attackCount)
+            if(attackCounter >= AttackCount)
             {
                 attackCounter = 0;
                 return _blockState;
@@ -53,9 +82,6 @@ public class AttackState : BossState
 
     public override void LeaveState()
     {
-        for (int i = 0; i < hitters.Length; i++)
-        {
-            hitters[i].Deactivate();
-        }
+        isAttackDone = false;
     }
 }

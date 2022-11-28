@@ -35,5 +35,7 @@ public class IdleState : BossState
         return null;
     }
 
-    public override void LeaveState() { }
+    public override void LeaveState() {
+        IdleTime = 1;
+    }
 }

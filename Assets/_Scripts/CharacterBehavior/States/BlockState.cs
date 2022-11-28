@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class BlockState : BossState
 {
-
-
+    [SerializeField]
+    Health _health;
     int _stage = 0 ;
     [SerializeField]
     Animator _animator;
@@ -15,10 +15,12 @@ public class BlockState : BossState
     [SerializeField]
     IdleState _idleState;
     [SerializeField]
+    DeadState _deadState;
+    [SerializeField]
     Hitable_Weakpoint[] _weakpoints;
 
     bool _blockingDone = false;
-
+    private bool _isDead;
 
     private void Start()
     {
@@ -47,6 +49,14 @@ public class BlockState : BossState
                 _weakpoints[2].Deactivate();
                 StartCoroutine(BlockFinished());
                 _animator.CrossFade("RIG_Boss_01|Boss_Block_Hurt_03", 0.1f);
+                _health.Hurt(1);
+
+                if(_health.Hp <= 0)
+                {
+                    _isDead = true;
+                }
+
+
                 break;
         }
     }
@@ -68,6 +78,13 @@ public class BlockState : BossState
 
     public override BossState UpdateState()
     {
+
+        if (_isDead)
+        {
+            return _deadState;
+        }
+
+
 
         if(_startBlockTime + BlockTime <= Time.time && _stage <3 || _blockingDone)
         {

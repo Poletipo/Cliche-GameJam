@@ -27,6 +27,18 @@ ModelImporter:
   - first:
       74: 7358607454194994165
     second: RIG_Boss_01|Boss_TPose
+  - first:
+      74: 7922580650748705197
+    second: RIG_Boss_01|ArmatureAction (1)
+  - first:
+      74: 7724273463277695534
+    second: RIG_Boss_01|Boss_Attack_02
+  - first:
+      74: 7396654188019178729
+    second: RIG_Boss_01|Boss_Attack_03
+  - first:
+      74: -3250289327698920803
+    second: RIG_Boss_01|Boss_Death
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -90,7 +102,7 @@ ModelImporter:
       takeName: RIG_Boss_01|Boss_Attack_01
       internalID: 0
       firstFrame: 0
-      lastFrame: 48
+      lastFrame: 52
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -272,6 +284,133 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: RIG_Boss_01|Boss_Attack_02
+      takeName: RIG_Boss_01|Boss_Attack_02
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 96
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0.2037037
+        functionName: ActivateHitter
+        data: 
+        objectReferenceParameter: {fileID: 919132149155446097, guid: c853412213831d64ba55ace9cd463195,
+          type: 3}
+        floatParameter: 0
+        intParameter: 1
+        messageOptions: 0
+      - time: 0.5
+        functionName: DeactivateHitter
+        data: 
+        objectReferenceParameter: {fileID: 919132149155446097, guid: c853412213831d64ba55ace9cd463195,
+          type: 3}
+        floatParameter: 0
+        intParameter: 1
+        messageOptions: 0
+      - time: 0.62983316
+        functionName: ActivateHitter
+        data: 
+        objectReferenceParameter: {fileID: 919132149155446097, guid: c853412213831d64ba55ace9cd463195,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9645231
+        functionName: AttackAnimOver
+        data: 
+        objectReferenceParameter: {fileID: 919132149155446097, guid: c853412213831d64ba55ace9cd463195,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.7777778
+        functionName: DeactivateHitter
+        data: 
+        objectReferenceParameter: {fileID: 919132149155446097, guid: c853412213831d64ba55ace9cd463195,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: RIG_Boss_01|Boss_Attack_03
+      takeName: RIG_Boss_01|Boss_Attack_03
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 69
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: RIG_Boss_01|Boss_Death
+      takeName: RIG_Boss_01|Boss_Death
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 18
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0

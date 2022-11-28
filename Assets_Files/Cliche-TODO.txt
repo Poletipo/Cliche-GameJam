@@ -6,6 +6,10 @@ Enemies are invincible except for their Weakpoint.
 
 TODO:
 	- Boss battle
+		- Weakpoint on hand
+	- Texture
+		- Spike
+		- Doors
 	
 
 FIXES:
@@ -15,6 +19,7 @@ FIXES:
 WISH:
 	- Cavern visuals environment
 	- Second Enemy
+	- Intro anim
 	- Pot with health
 	- Music
 	- Sound Effect
