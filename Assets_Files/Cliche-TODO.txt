@@ -5,24 +5,23 @@ Enemies are invincible except for their Weakpoint.
 
 
 TODO:
-	- Texture
-		- Doors
 	- Level end better visuals
-	- Win state
+	- Win Screen
 	
 FIXES:
 	- Hurt anim after Attack (reset trigger when hurt)
 	- Mob stay "jump prepare" after taking hit (reset trigger when hurt)
+	- Fix Attack trough things
 
 WISH:
-	- Boss battle
-	- torches
-	- Cavern visuals environment
+	- Better Visual
+		- Torches
+		- Cavern visuals environment
 	- Second Enemy
-	- Intro anim
+	- Boss battle
+		- Intro anim
 	- Pot with health
 	- Music
 	- Sound Effect
 	- Slap Vfx
-	- Fix Attack trough things
 
