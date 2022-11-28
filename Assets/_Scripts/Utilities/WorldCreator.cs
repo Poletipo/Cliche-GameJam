@@ -12,6 +12,7 @@ public class WorldCreator : MonoBehaviour
 
     public GameObject floor;
 
+    public int nextLevel = 0;
     Color[] pixelColors;
 
     // Start is called before the first frame update
@@ -56,6 +57,13 @@ public class WorldCreator : MonoBehaviour
                     {
                         door.Orientation(90);
                     }
+                    LevelEnd levelEnd = gmobj.GetComponent<LevelEnd>();
+                    if(levelEnd != null)
+                    {
+                        levelEnd.nextLevel = nextLevel;
+                    }
+
+
                     break;
                 }
             }
