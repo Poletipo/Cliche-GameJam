@@ -7803,6 +7803,7 @@ MonoBehaviour:
   - {r: 1, g: 0.49803922, b: 0, a: 1}
   - {r: 1, g: 1, b: 0, a: 1}
   floor: {fileID: 8763101993753061144, guid: 6306105e842b7aa45bc2fc3449f91c97, type: 3}
+  nextLevel: 0
 --- !u!4 &821363870
 Transform:
   m_ObjectHideFlags: 0

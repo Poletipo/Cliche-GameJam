@@ -14,6 +14,7 @@ public class DeadState : BossState
     {
         Debug.Log("ImDead, oh no. The pain, the misery...");
         _animator.CrossFade("RIG_Boss_01|Boss_Death", .2f);
+        GameManager.Instance.WinGame();
     }
 
     public override void LeaveState()

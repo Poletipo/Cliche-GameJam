@@ -71,6 +71,16 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(levelNumber);
     }
 
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void WinGame()
+    {
+        UI.WinGameScreen();
+    }
+
     public void QuitGame()
     {
         #if UNITY_EDITOR

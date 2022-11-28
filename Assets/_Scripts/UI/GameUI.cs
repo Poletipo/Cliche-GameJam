@@ -24,6 +24,8 @@ public class GameUI : MonoBehaviour
     GameObject _deathScreen;
     [SerializeField]
     GameObject _pauseScreen;
+    [SerializeField]
+    GameObject _winScreen;
     bool lastHeart = false;
     private Animation anim;
     private bool isPaused = false;
@@ -67,6 +69,11 @@ public class GameUI : MonoBehaviour
     }
 
     public void Restart()
+    {
+        GameManager.Instance.RestartLevel();
+    }
+
+    public void StartOver()
     {
         GameManager.Instance.LoadLevel(0);
     }
@@ -130,10 +137,14 @@ public class GameUI : MonoBehaviour
         }
     }
 
-
     public void QuitGame()
     {
         GameManager.Instance.QuitGame();
+    }
+
+    public void WinGameScreen()
+    {
+        _winScreen.SetActive(true);
     }
 
     // Update is called once per frame

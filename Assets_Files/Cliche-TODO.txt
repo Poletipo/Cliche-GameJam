@@ -5,8 +5,7 @@ Enemies are invincible except for their Weakpoint.
 
 
 TODO:
-	- Level end better visuals
-	- Win Screen
+	- Win Screen anim
 	
 FIXES:
 	- Hurt anim after Attack (reset trigger when hurt)
