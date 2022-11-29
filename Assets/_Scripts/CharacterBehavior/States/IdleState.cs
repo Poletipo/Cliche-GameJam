@@ -18,7 +18,6 @@ public class IdleState : BossState
 
     public override void EnterState(BossState previousState)
     {
-        Debug.Log("Idle");
         _animator.CrossFade("RIG_Boss_01|Boss_Idle", 0.2f);
         _startIdleTime = Time.time;
     }

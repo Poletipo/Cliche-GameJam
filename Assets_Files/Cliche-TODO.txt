@@ -6,7 +6,7 @@ Enemies are invincible except for their Weakpoint.
 
 TODO:
 	- Second Enemy
-	- 2 more levels
+	- 1 more levels
 	
 FIXES:
 	- Hurt anim after Attack (reset trigger when hurt)
