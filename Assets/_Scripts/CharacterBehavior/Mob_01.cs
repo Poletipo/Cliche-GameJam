@@ -45,6 +45,10 @@ public class Mob_01 : MonoBehaviour
     public GameObject DeathParticle;
 
 
+    [SerializeField]
+    AudioClip jumpSFX;
+
+
 
     private Boss_01States _currenState = Boss_01States.Idle;
 
@@ -61,6 +65,11 @@ public class Mob_01 : MonoBehaviour
             {
                 hitter.Deactivate();
             }
+            else if (value == Boss_01States.Attacking)
+            {
+                AudioManager.Instance.PlayAudio(jumpSFX, transform.position);
+            }
+
 
             _currenState = value; 
             OnStateChanged?.Invoke();
@@ -126,8 +135,11 @@ public class Mob_01 : MonoBehaviour
         Destroy(gameObject);
     }
 
+
+    public AudioClip hurtSFX;
     private void OnHurt()
     {
+        AudioManager.Instance.PlayAudio(hurtSFX, transform.position);
         _mc.MoveInput = Vector2.zero;
         CurrentState = Boss_01States.Hurt;
 

@@ -71,7 +71,6 @@ public class BlockState : BossState
     public override void EnterState(BossState previousState)
     {
         _weakpoints[0].Activate();
-        Debug.Log("Block");
         _animator.CrossFade("RIG_Boss_01|Boss_Block", 0.1f);
         _startBlockTime = Time.time;
     }

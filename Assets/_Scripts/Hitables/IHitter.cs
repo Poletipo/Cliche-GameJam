@@ -6,6 +6,8 @@ using UnityEngine;
 public class IHitter : MonoBehaviour
 {
 
+    public AudioClip hitClip;
+
     public Action OnHit;
 
     public bool needRefresh = false;
@@ -77,9 +79,17 @@ public class IHitter : MonoBehaviour
         value.force = knockbackForce;
         value.knockTime = knockbackTime;
 
-        hitable.Hit(value);
+        bool isHit = hitable.Hit(value);
 
-        OnHit?.Invoke();
+        if (isHit)
+        {
+            if(hitClip != null)
+            {
+                AudioManager.Instance.PlayAudio(hitClip, transform.position, .25f);
+            }
+            OnHit?.Invoke();
+        }
+
     }
 
 }

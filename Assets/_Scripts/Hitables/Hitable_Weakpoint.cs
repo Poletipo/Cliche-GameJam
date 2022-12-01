@@ -9,15 +9,22 @@ public class Hitable_Weakpoint : IHitable
 
     bool isActivated = false;
 
+    [SerializeField]
+    AudioClip hurtSFX;
 
-    public override void Hit(HitterValue value)
+
+    public override bool Hit(HitterValue value)
     {
 
         if (isActivated)
         {
             OnHit?.Invoke();
             flash.StartFlash();
+            AudioManager.Instance.PlayAudio(hurtSFX, transform.position, 50);
+
+            return true;
         }
+        return false;
 
     }
 

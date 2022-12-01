@@ -9,7 +9,7 @@ public class Hitable_Hurt : IHitable
     public Flash flash;
     public MovementController _mc;
 
-    public override void Hit(HitterValue value)
+    public override bool Hit(HitterValue value)
     {
         bool isHurt = Hp.Hurt(value.dmg);
         if (isHurt)
@@ -21,6 +21,9 @@ public class Hitable_Hurt : IHitable
             knockBackDirection.Normalize();
 
             _mc.KnockBack(knockBackDirection, value.force,value.knockTime);
+
+            return true;
         }
+        return false;
     }
 }

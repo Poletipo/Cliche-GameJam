@@ -110,6 +110,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 254135d3dc4f1a34bbb580e0edd30bdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlockSFX: {fileID: 8300000, guid: d6aace4143e1b1c439a3d10e186f8cfc, type: 3}
+  lockedSFX: {fileID: 8300000, guid: 07f93d07ebb835345ae8ebd82cade34f, type: 3}
   unlockAnimCurve:
     serializedVersion: 2
     m_Curve:

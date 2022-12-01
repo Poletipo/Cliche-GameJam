@@ -8,6 +8,8 @@ public class Boss01_AnimEvents : MonoBehaviour
     IHitter[] hitters;
     [SerializeField]
     AttackState _attackState;
+    [SerializeField]
+    AudioClip boomSFX;
 
     public void ActivateHitter(int index)
     {
@@ -23,15 +25,11 @@ public class Boss01_AnimEvents : MonoBehaviour
     {
         _attackState.AnimationOver();
     }
-    // Start is called before the first frame update
-    void Start()
+    
+    public void PlayBoomSound(int index)
     {
-        
+        AudioManager.Instance.PlayAudio(boomSFX, hitters[index].transform.position);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }

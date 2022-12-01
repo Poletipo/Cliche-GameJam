@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class PickableKey : PickableItem
 {
+    public AudioClip keySFX;
     public override void Collect(PlayerController playerController)
     {
+        AudioManager.Instance.PlayAudio(keySFX, transform.position);
         playerController.Keycount++;
         Destroy(gameObject);
     }

@@ -125,3 +125,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b516ba923b632324c9734991d791bca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heartSFX: {fileID: 8300000, guid: 6c7dacbdcdd820442b51150a68f42bc0, type: 3}

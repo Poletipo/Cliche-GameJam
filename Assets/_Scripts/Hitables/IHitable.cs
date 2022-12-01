@@ -16,7 +16,7 @@ public abstract class IHitable : MonoBehaviour
         public float knockTime;
     }
 
-    public abstract void Hit(HitterValue value);
+    public abstract bool Hit(HitterValue value);
 
 
     public void Activate() { }

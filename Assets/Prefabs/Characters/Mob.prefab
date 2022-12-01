@@ -348,9 +348,11 @@ MonoBehaviour:
   knockBackTime: 0.5
   DeathParticle: {fileID: 664041309615286585, guid: e840fd497e5d02c4e9cb7b863f3409bf,
     type: 3}
+  jumpSFX: {fileID: 8300000, guid: 66c17afb19216f14497eb82ac25e0824, type: 3}
   _health: {fileID: 5591703853776981925}
   hitter: {fileID: 2063565376}
   ChaseDistance: 6
+  hurtSFX: {fileID: 8300000, guid: 331ab88dfe3aaab4b9818b13a2fe1265, type: 3}
 --- !u!54 &5591703853776981922
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -379,6 +381,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13aa6ccbf54d8d84bb2a57d887456691, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitClip: {fileID: 0}
   needRefresh: 1
   RefreshTimer: 1
   knockbackForce: 10

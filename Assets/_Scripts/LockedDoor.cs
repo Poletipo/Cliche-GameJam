@@ -12,6 +12,8 @@ public class LockedDoor : Interactable
         Open
     }
 
+    public AudioClip unlockSFX;
+    public AudioClip lockedSFX;
     public AnimationCurve unlockAnimCurve;
     public float UnlockTime = 1;
     public GameObject InteractUI;
@@ -22,7 +24,7 @@ public class LockedDoor : Interactable
 
     public void UnlockDoor(PlayerController player)
     {
-        //TODO: anim for interact UI
+        AudioManager.Instance.PlayAudio(unlockSFX, transform.position);
         anim.Play("DoorUI_Unlock_Accepted");
         UnlockStartTime = Time.time;
         currentState = DoorState.Unlocked;
@@ -31,6 +33,7 @@ public class LockedDoor : Interactable
     private void DeniedUnlock()
     {
         anim.Play("DoorUI_Unlock_Denied");
+        AudioManager.Instance.PlayAudio(lockedSFX, transform.position);
     }
 
     public override bool Interact(PlayerController player)

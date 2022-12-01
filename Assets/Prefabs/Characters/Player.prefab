@@ -175,6 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13aa6ccbf54d8d84bb2a57d887456691, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitClip: {fileID: 8300000, guid: 404223b439508624bb7e05defceac2de, type: 3}
   needRefresh: 0
   RefreshTimer: 1
   knockbackForce: 10
@@ -232,6 +233,7 @@ Transform:
   - {fileID: 146817434447819355}
   - {fileID: 397197273377617342}
   - {fileID: 701823335}
+  - {fileID: 6483206781212727111}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -281,6 +283,8 @@ MonoBehaviour:
   hitter: {fileID: 146817434447819357}
   _interacter: {fileID: 565499466}
   playerAnimCtrl: {fileID: 146817435459845851}
+  deadSFX: {fileID: 8300000, guid: 619c7cf2f520f0f42bc0120b4243f33b, type: 3}
+  hurtSFX: {fileID: 8300000, guid: e18dc1205851f644e81e6511c2414431, type: 3}
   _health: {fileID: 8946036788006263134}
   DeadSpawn: {fileID: 6313932435671916861, guid: 239397d157c4b9d48839d2377145db53,
     type: 3}
@@ -371,6 +375,59 @@ MonoBehaviour:
   InvincibleTime: 0.5
   _maxHp: 16
   _hp: 5
+--- !u!1 &7952332807840054145
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6483206781212727111}
+  - component: {fileID: 4873486435478175825}
+  - component: {fileID: 156205281}
+  m_Layer: 8
+  m_Name: AudioListener
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6483206781212727111
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7952332807840054145}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 397197273774868266}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &4873486435478175825
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7952332807840054145}
+  m_Enabled: 1
+--- !u!114 &156205281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7952332807840054145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d99c9275af6b8f346b98a01518332c3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &146817434124309077
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1265,6 +1322,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitter: {fileID: 146817434447819357}
+  bootSFX:
+  - {fileID: 8300000, guid: 71fdf1099c58372429431430e291d0fd, type: 3}
+  - {fileID: 8300000, guid: f7701af9a64c6104299f794d4b24768a, type: 3}
 --- !u!137 &3264147222971297419 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: -5817228812595200802, guid: 59e0928745608d148812cf4ac9a7ac44,

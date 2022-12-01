@@ -5,8 +5,8 @@ Enemies are invincible except for their Weakpoint.
 
 
 TODO:
-	- Second Enemy
-	- 1 more levels
+	- Music
+	- Sound Effect
 	
 FIXES:
 	- Hurt anim after Attack (reset trigger when hurt)
@@ -14,13 +14,27 @@ FIXES:
 	- Fix Attack trough things
 
 WISH:
+	- Second Enemy
 	- Win Screen anim
 	- Better Visual
 		- Cavern visuals environment
 	- Boss battle
 		- Intro anim
 	- Pot with health
-	- Music
-	- Sound Effect
 	- Slap Vfx
+
+SFX:
+	# Slap
+	- Woosh (slap)
+	- Foot boot
+	- Monster agro
+	- Monster hurt
+	- Boss slam
+	- Fire crackling
+	- Key pickup
+	- Door unlock
+	- Door denied
+	- Bone kluncking (skully hurt)
+	- feet slap (Monster walking)
+	- Boss hurt
 

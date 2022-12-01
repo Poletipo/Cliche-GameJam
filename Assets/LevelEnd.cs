@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LevelEnd : MonoBehaviour
 {
+    public AudioClip nextLevelSFX;
     public int nextLevel = 0;
 
     private void OnTriggerEnter(Collider other)
@@ -12,6 +13,7 @@ public class LevelEnd : MonoBehaviour
 
         if (player != null)
         {
+            AudioManager.Instance.PlayAudio(nextLevelSFX, transform.position);
             StartCoroutine(NextLevel());
         }
     }

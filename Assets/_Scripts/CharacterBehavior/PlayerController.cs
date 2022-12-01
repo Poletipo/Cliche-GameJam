@@ -37,6 +37,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     PlayerAnimCtrl playerAnimCtrl;
 
+    public AudioClip deadSFX;
+    public AudioClip hurtSFX;
 
 
     public Action OnKeyCountChanged;
@@ -103,6 +105,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnDeath()
     {
+        AudioManager.Instance.PlayAudio(deadSFX, transform.position);
         _meshRenderer.enabled = false;
         _mc.IsEnabled = false;
         _mc.enabled = false;
@@ -114,6 +117,7 @@ public class PlayerController : MonoBehaviour
     private void OnHurt()
     {
         playerAnimCtrl.HurtAnim();
+        AudioManager.Instance.PlayAudio(hurtSFX, transform.position);
     }
 
     private void OnInteract(InputAction.CallbackContext obj)

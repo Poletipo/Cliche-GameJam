@@ -6,7 +6,7 @@ public class Hitable_KnockBack : IHitable
 {
     public float knockBackForce = 50;
 
-    public override void Hit(HitterValue value)
+    public override bool Hit(HitterValue value)
     {
 
         Vector3 direction = value.hitter.HitterSource.transform.position - transform.position ;
@@ -14,5 +14,6 @@ public class Hitable_KnockBack : IHitable
         //value.hitter.HitterSource.GetComponentInParent<MovementController>().KnockBack(direction);
 
 
+        return true;
     }
 }
