@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,5 +26,8 @@ public class PlayerAnimCtrl : MonoBehaviour
         animator.SetTrigger("Hurt");
     }
 
-
+    public void StopAnim()
+    {
+        animator.SetFloat("Velocity", 0);
+    }
 }

@@ -105,6 +105,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnDeath()
     {
+        playerAnimCtrl.StopAnim();
         AudioManager.Instance.PlayAudio(deadSFX, transform.position);
         _meshRenderer.enabled = false;
         _mc.IsEnabled = false;

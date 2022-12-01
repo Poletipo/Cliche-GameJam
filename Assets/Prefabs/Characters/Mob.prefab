@@ -171,12 +171,12 @@ GameObject:
   - component: {fileID: 5591703853776981927}
   - component: {fileID: 5591703853776981930}
   - component: {fileID: 5591703853776981925}
-  - component: {fileID: 5591703853776981926}
   - component: {fileID: 5591703853776981923}
   - component: {fileID: 5591703853776981924}
   - component: {fileID: 5591703853776981922}
   - component: {fileID: 2063565376}
   - component: {fileID: 1797787845676044007}
+  - component: {fileID: 9161871005836420511}
   m_Layer: 9
   m_Name: Mob
   m_TagString: Untagged
@@ -230,21 +230,6 @@ MonoBehaviour:
   InvincibleTime: 0.5
   _maxHp: 5
   _hp: 5
---- !u!114 &5591703853776981926
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5591703853776981932}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aeb50532e86904146b8a0df2dd78353a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Hp: {fileID: 5591703853776981925}
-  flash: {fileID: 4390008593148606454}
-  _mc: {fileID: 5591703853776981923}
 --- !u!114 &5591703853776981923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -402,6 +387,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animator: {fileID: 4979078800505092100}
   mob: {fileID: 5591703853776981924}
+--- !u!114 &9161871005836420511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5591703853776981932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747168da8882a0543931605cc438ebab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Hp: {fileID: 5591703853776981925}
+  flash: {fileID: 4390008593148606454}
+  _mc: {fileID: 5591703853776981923}
+  frontAngle: 100
+  shoveSFX: {fileID: 8300000, guid: 05fb5c20e644d9c4eb06908ba6fdd4c0, type: 3}
 --- !u!1001 &4263003400109599908
 PrefabInstance:
   m_ObjectHideFlags: 0
