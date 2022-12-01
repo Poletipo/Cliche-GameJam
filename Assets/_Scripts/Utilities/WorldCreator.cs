@@ -32,7 +32,7 @@ public class WorldCreator : MonoBehaviour
         int height = map.height;
 
         GameObject quad = Instantiate(floor, new Vector3(width / 2, 0, height / 2), Quaternion.identity);
-        quad.transform.localScale = Vector3.one * (width+1);
+        quad.transform.localScale = Vector3.one * (width*2);
         quad.transform.parent = transform;
 
         for (int i = 0; i < pixelColors.Length; i++)

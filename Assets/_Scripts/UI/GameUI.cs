@@ -75,7 +75,7 @@ public class GameUI : MonoBehaviour
 
     public void StartOver()
     {
-        GameManager.Instance.LoadLevel(0);
+        GameManager.Instance.LoadLevel(1);
     }
 
     private void OnKeyCountChanged()

@@ -5,11 +5,9 @@ Enemies are invincible except for their Weakpoint.
 
 
 TODO:
-	- Music
-	- Sound Effect
+	- Attack only in front
 	
 FIXES:
-	- Hurt anim after Attack (reset trigger when hurt)
 	- Mob stay "jump prepare" after taking hit (reset trigger when hurt)
 	- Fix Attack trough things
 
@@ -26,15 +24,15 @@ WISH:
 SFX:
 	# Slap
 	- Woosh (slap)
-	- Foot boot
+	# Foot boot
 	- Monster agro
-	- Monster hurt
-	- Boss slam
+	# Monster hurt
+	# Boss slam
 	- Fire crackling
-	- Key pickup
-	- Door unlock
-	- Door denied
+	# Key pickup
+	# Door unlock
+	# Door denied
 	- Bone kluncking (skully hurt)
 	- feet slap (Monster walking)
-	- Boss hurt
+	# Boss hurt
 
