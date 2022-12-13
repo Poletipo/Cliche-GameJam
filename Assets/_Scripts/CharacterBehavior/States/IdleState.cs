@@ -2,34 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IdleState : BossState
-{
-    [SerializeField]
-    Animator _animator;
+public class IdleState : BossState {
+
+    [SerializeField] AttackState _attackState;
+    [SerializeField] Animator _animator;
     public float IdleTime = 1;
-    float _startIdleTime;
-    [SerializeField]
-    AttackState _attackState;
 
-    private void Start()
-    {
+    private float _startIdleTime;
 
-    }
-
-    public override void EnterState(BossState previousState)
-    {
+    public override void EnterState(BossState previousState) {
         _animator.CrossFade("RIG_Boss_01|Boss_Idle", 0.2f);
         _startIdleTime = Time.time;
     }
 
-    public override BossState UpdateState()
-    {
+    public override BossState UpdateState() {
 
-        if(_startIdleTime + IdleTime <= Time.time)
-        {
+        if (_startIdleTime + IdleTime <= Time.time) {
             return _attackState;
         }
-
 
         return null;
     }

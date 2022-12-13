@@ -3,43 +3,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LockedDoor : Interactable
-{
-    enum DoorState
-    {
+public class LockedDoor : Interactable {
+    enum DoorState {
         Locked,
         Unlocked,
         Open
     }
 
-    public AudioClip unlockSFX;
-    public AudioClip lockedSFX;
-    public AnimationCurve unlockAnimCurve;
-    public float UnlockTime = 1;
+    public AnimationCurve UnlockAnimCurve;
     public GameObject InteractUI;
-    public Animation anim;
-    private float UnlockStartTime;
+    public AudioClip UnlockSFX;
+    public AudioClip LockedSFX;
+    public Animation Anim;
+    public float UnlockTime = 1;
 
-    DoorState currentState = DoorState.Locked;
+    private DoorState _currentState = DoorState.Locked;
+    private float _unlockStartTime;
 
-    public void UnlockDoor(PlayerController player)
-    {
-        AudioManager.Instance.PlayAudio(unlockSFX, transform.position);
-        anim.Play("DoorUI_Unlock_Accepted");
-        UnlockStartTime = Time.time;
-        currentState = DoorState.Unlocked;
+
+    public void UnlockDoor(PlayerController player) {
+        AudioManager.Instance.PlayAudio(UnlockSFX, transform.position);
+        Anim.Play("DoorUI_Unlock_Accepted");
+        _unlockStartTime = Time.time;
+        _currentState = DoorState.Unlocked;
     }
 
-    private void DeniedUnlock()
-    {
-        anim.Play("DoorUI_Unlock_Denied");
-        AudioManager.Instance.PlayAudio(lockedSFX, transform.position);
+    private void DeniedUnlock() {
+        Anim.Play("DoorUI_Unlock_Denied");
+        AudioManager.Instance.PlayAudio(LockedSFX, transform.position);
     }
 
-    public override bool Interact(PlayerController player)
-    {
-        if(currentState == DoorState.Locked && player.Keycount > 0)
-        {
+    public override bool Interact(PlayerController player) {
+        if (_currentState == DoorState.Locked && player.Keycount > 0) {
             player.Keycount--;
             UnlockDoor(player);
             return true;
@@ -50,15 +45,12 @@ public class LockedDoor : Interactable
         return false;
     }
 
-    public void Orientation(float angle)
-    {
+    public void Orientation(float angle) {
         transform.rotation = Quaternion.Euler(Vector3.up * angle);
     }
 
-    private void Update()
-    {
-        switch (currentState)
-        {
+    private void Update() {
+        switch (_currentState) {
             case DoorState.Locked:
                 break;
             case DoorState.Unlocked:
@@ -71,29 +63,25 @@ public class LockedDoor : Interactable
         }
     }
 
-    private void HandleUnlockState()
-    {
-        float t = (Time.time - UnlockStartTime) / UnlockTime;
+    private void HandleUnlockState() {
+        float t = (Time.time - _unlockStartTime) / UnlockTime;
 
-        if(t >= 1)
-        {
+        if (t >= 1) {
             GetComponent<Collider>().enabled = false;
-            currentState = DoorState.Open;
+            _currentState = DoorState.Open;
         }
 
         Vector3 pos = transform.position;
-        pos.y = unlockAnimCurve.Evaluate(t);
+        pos.y = UnlockAnimCurve.Evaluate(t);
         transform.position = pos;
-        
+
     }
 
-    public override void ShowUI()
-    {
+    public override void ShowUI() {
         InteractUI.SetActive(true);
     }
 
-    public override void HideUI()
-    {
+    public override void HideUI() {
         InteractUI.SetActive(false);
     }
 }

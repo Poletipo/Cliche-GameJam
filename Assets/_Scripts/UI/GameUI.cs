@@ -4,35 +4,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class GameUI : MonoBehaviour
-{
+public class GameUI : MonoBehaviour {
 
-    GameObject _player;
-    PlayerController _playerCtrl;
-    Health _health;
+    [SerializeField] Animation NextLevel_Anim;
+    [SerializeField] Transform _healthContainer;
+    [SerializeField] GameObject _heartSprite;
+    [SerializeField] TextMeshProUGUI keyCountTxt;
+    [SerializeField] GameObject _deathScreen;
+    [SerializeField] GameObject _pauseScreen;
+    [SerializeField] GameObject _winScreen;
 
+    private PlayerController _playerCtrl;
+    private GameObject _player;
+    private Animation _anim;
+    private Health _health;
+    private bool _lastHeart = false;
+    private bool _isPaused = false;
 
-    [SerializeField]
-    Animation NextLevel_Anim;
-    [SerializeField]
-    Transform _healthContainer;
-    [SerializeField]
-    GameObject _heartSprite;
-    [SerializeField]
-    TextMeshProUGUI keyCountTxt;
-    [SerializeField]
-    GameObject _deathScreen;
-    [SerializeField]
-    GameObject _pauseScreen;
-    [SerializeField]
-    GameObject _winScreen;
-    bool lastHeart = false;
-    private Animation anim;
-    private bool isPaused = false;
-
-    // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         _player = GameManager.Instance.Player;
         _health = _player.GetComponent<Health>();
         _health.OnHurt += OnHurt;
@@ -43,113 +32,85 @@ public class GameUI : MonoBehaviour
 
         _playerCtrl.OnKeyCountChanged += OnKeyCountChanged;
 
-
-
-        if(_healthContainer.childCount > 0)
-        {
+        if (_healthContainer.childCount > 0) {
             Destroy(_healthContainer.GetChild(0).gameObject);
         }
 
-        for (int i = 0; i < _health.Hp; i++)
-        {
+        for (int i = 0; i < _health.Hp; i++) {
             SpawnHeartSprite();
         }
 
     }
 
-    private void OnDeath()
-    {
+    private void OnDeath() {
         StartCoroutine(OnDeathCoroutine());
     }
 
-    private IEnumerator OnDeathCoroutine()
-    {
+    private IEnumerator OnDeathCoroutine() {
         yield return new WaitForSeconds(1);
         _deathScreen.SetActive(true);
     }
 
-    public void Restart()
-    {
+    public void Restart() {
         GameManager.Instance.RestartLevel();
     }
 
-    public void StartOver()
-    {
+    public void StartOver() {
         GameManager.Instance.LoadLevel(1);
     }
 
-    private void OnKeyCountChanged()
-    {
+    private void OnKeyCountChanged() {
         keyCountTxt.text = _playerCtrl.Keycount.ToString();
     }
 
-    private void OnHeal()
-    {
+    private void OnHeal() {
 
-        if (lastHeart)
-        {
-            anim.Play("Heart_Idle");
-            lastHeart = false;
+        if (_lastHeart) {
+            _anim.Play("Heart_Idle");
+            _lastHeart = false;
         }
 
         SpawnHeartSprite();
     }
 
-    private void OnHurt()
-    {
-        if(_healthContainer.childCount == 2)
-        {
-            anim = _healthContainer.GetChild(1).GetComponentInChildren<Animation>();
-            anim.Play("Heart_Last");
-            lastHeart = true;
+    private void OnHurt() {
+        if (_healthContainer.childCount == 2) {
+            _anim = _healthContainer.GetChild(1).GetComponentInChildren<Animation>();
+            _anim.Play("Heart_Last");
+            _lastHeart = true;
         }
-        if(_healthContainer.childCount > 0)
-        {
+        if (_healthContainer.childCount > 0) {
             Destroy(_healthContainer.GetChild(0).gameObject);
         }
     }
 
-
-    void SpawnHeartSprite()
-    {
+    void SpawnHeartSprite() {
         Instantiate(_heartSprite, _healthContainer);
     }
 
-
-    public void NextLevelTransition()
-    {
+    public void NextLevelTransition() {
         NextLevel_Anim.Play("Level_End");
     }
 
-    public void Pause()
-    {
-        if (!isPaused)
-        {
+    public void Pause() {
+        if (!_isPaused) {
             Time.timeScale = 0;
             _pauseScreen.SetActive(true);
-            isPaused = true;
+            _isPaused = true;
         }
-        else
-        {
+        else {
             Time.timeScale = 1;
             _pauseScreen.SetActive(false);
-            isPaused = false;
+            _isPaused = false;
         }
     }
 
-    public void QuitGame()
-    {
+    public void QuitGame() {
         GameManager.Instance.QuitGame();
     }
 
-    public void WinGameScreen()
-    {
+    public void WinGameScreen() {
         _winScreen.SetActive(true);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

@@ -4,69 +4,52 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
-{
-    public enum PlayerState
-    {
+public class PlayerController : MonoBehaviour {
+    public enum PlayerState {
         Alive,
         Dead,
         InCutscene
     }
 
     public Action OnPlayerStateChanged;
+    public Action OnKeyCountChanged;
+
+
+    [SerializeField] MovementController _mc;
+    [SerializeField] IHitter hitter;
+    [SerializeField] Interacter _interacter;
+    [SerializeField] PlayerAnimCtrl playerAnimCtrl;
+
+    [SerializeField] private Health _health;
+    [SerializeField] private GameObject DeadSpawn;
+    [SerializeField] private Renderer _meshRenderer;
+    [SerializeField] private Collider _collider;
+
+    public AudioClip DeadSFX;
+    public AudioClip HurtSFX;
+
+    private Cliche_InputAction _myInput;
 
     PlayerState _currentState = PlayerState.Alive;
 
-    public PlayerState CurrentState
-    {
+    public PlayerState CurrentState {
         get { return _currentState; }
-        set { 
+        set {
             _currentState = value;
             OnPlayerStateChanged?.Invoke();
         }
     }
 
-    Cliche_InputAction _myInput;
-    [SerializeField]
-    MovementController _mc;
-    [SerializeField]
-    IHitter hitter;
-    [SerializeField]
-    Interacter _interacter;
-
-    [SerializeField]
-    PlayerAnimCtrl playerAnimCtrl;
-
-    public AudioClip deadSFX;
-    public AudioClip hurtSFX;
-
-
-    public Action OnKeyCountChanged;
-
     private int _keyCount = 0;
-    public int Keycount
-    {
+    public int Keycount {
         get { return _keyCount; }
-        set { 
+        set {
             _keyCount = value;
             OnKeyCountChanged?.Invoke();
         }
     }
 
-    [SerializeField]
-    private Health _health;
-
-    [SerializeField]
-    private GameObject DeadSpawn;
-    [SerializeField]
-    private Renderer _meshRenderer;
-    [SerializeField]
-    private Collider _collider;
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         _myInput = new Cliche_InputAction();
 
         _myInput.Player.Move.performed += OnMove;
@@ -83,16 +66,11 @@ public class PlayerController : MonoBehaviour
         _health.OnDeath += OnDeath;
     }
 
-    private void OnPause(InputAction.CallbackContext obj)
-    {
-        if (obj.performed)
-        {
-            GameManager.Instance.UI.Pause();
-        }
+    void Update() {
+        UpdateAnimation();
     }
 
-    private void OnDestroy()
-    {
+    private void OnDestroy() {
         _myInput.Player.Move.performed -= OnMove;
         _myInput.Player.Move.canceled -= OnMoveStop;
 
@@ -102,11 +80,15 @@ public class PlayerController : MonoBehaviour
         _myInput.Player.Pause.performed -= OnPause;
     }
 
+    private void OnPause(InputAction.CallbackContext obj) {
+        if (obj.performed) {
+            GameManager.Instance.UI.Pause();
+        }
+    }
 
-    private void OnDeath()
-    {
+    private void OnDeath() {
         playerAnimCtrl.StopAnim();
-        AudioManager.Instance.PlayAudio(deadSFX, transform.position);
+        AudioManager.Instance.PlayAudio(DeadSFX, transform.position);
         _meshRenderer.enabled = false;
         _mc.IsEnabled = false;
         _mc.enabled = false;
@@ -115,56 +97,39 @@ public class PlayerController : MonoBehaviour
         CurrentState = PlayerState.Dead;
     }
 
-    private void OnHurt()
-    {
+    private void OnHurt() {
         playerAnimCtrl.HurtAnim();
-        AudioManager.Instance.PlayAudio(hurtSFX, transform.position);
+        AudioManager.Instance.PlayAudio(HurtSFX, transform.position);
     }
 
-    private void OnInteract(InputAction.CallbackContext obj)
-    {
-        if ( _interacter.InteractInRange)
-        {
+    private void OnInteract(InputAction.CallbackContext obj) {
+        if (_interacter.InteractInRange) {
             _interacter.Interactable.Interact(this);
         }
     }
 
-    private void OnAttack(InputAction.CallbackContext obj)
-    {
+    private void OnAttack(InputAction.CallbackContext obj) {
         playerAnimCtrl.AttackAnim();
     }
 
-    public void ActivateHitter()
-    {
+    public void ActivateHitter() {
         hitter.Activate();
         _mc.IsEnabled = false;
     }
-    public void DeactivateHitter()
-    {
+    public void DeactivateHitter() {
         hitter.Deactivate();
         _mc.IsEnabled = true;
     }
 
-
-
-    private void OnMoveStop(InputAction.CallbackContext obj)
-    {
+    private void OnMoveStop(InputAction.CallbackContext obj) {
         _mc.MoveInput = Vector2.zero;
     }
 
-    private void OnMove(InputAction.CallbackContext obj)
-    {
+    private void OnMove(InputAction.CallbackContext obj) {
         _mc.MoveInput = obj.ReadValue<Vector2>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        UpdateAnimation();
-    }
-
-    private void UpdateAnimation()
-    {
+    private void UpdateAnimation() {
         float movementVelocity = new Vector2(_mc.Velocity.x, _mc.Velocity.z).magnitude / _mc.MaxSpeed;
         playerAnimCtrl.MovementVelocity = movementVelocity;
     }

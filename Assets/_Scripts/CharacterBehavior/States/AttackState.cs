@@ -2,75 +2,58 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackState : BossState
-{
-    [SerializeField]
-    Animator _animator;
+public class AttackState : BossState {
 
-    [SerializeField]
-    Health _health;
-
-    [SerializeField]
-    IdleState _idleState;
-    [SerializeField]
-    BlockState _blockState;
-
-    public int AttackCount = 2;
-    int attackCounter = 0;
+    [SerializeField] BlockState _blockState;
+    [SerializeField] IdleState _idleState;
+    [SerializeField] Animator _animator;
+    [SerializeField] Health _health;
 
     public IHitter[] hitters;
     public string[] attackAnimName;
+    public int AttackCount = 2;
 
-
-    private int _randomAttack = 0;
     private bool isAttackDone = false;
+    private int _attackCounter = 0;
+    private int _randomAttack = 0;
 
-    private void Start()
-    {
-        for (int i = 0; i < hitters.Length; i++)
-        {
+    private void Start() {
+        for (int i = 0; i < hitters.Length; i++) {
             hitters[i].OnHit += OnTargetHit;
         }
 
         _health.OnHurt += OnHurt;
     }
 
-    private void OnHurt()
-    {
+    private void OnHurt() {
         AttackCount += 3;
     }
 
-    private void OnTargetHit()
-    {
+    private void OnTargetHit() {
 
-        for (int i = 0; i < hitters.Length; i++)
-        {
+        for (int i = 0; i < hitters.Length; i++) {
             hitters[i].Deactivate();
         }
 
-        attackCounter--;
-        isAttackDone = true;
-    }
-    public void AnimationOver()
-    {
+        _attackCounter--;
         isAttackDone = true;
     }
 
-    public override void EnterState(BossState previousState)
-    {
+    public void AnimationOver() {
+        isAttackDone = true;
+    }
+
+    public override void EnterState(BossState previousState) {
 
         _randomAttack = Random.Range(0, attackAnimName.Length);
         _animator.CrossFade(attackAnimName[_randomAttack], 0.2f);
     }
 
-    public override BossState UpdateState()
-    {
-        if (isAttackDone)
-        {
-            attackCounter++;
-            if(attackCounter >= AttackCount)
-            {
-                attackCounter = 0;
+    public override BossState UpdateState() {
+        if (isAttackDone) {
+            _attackCounter++;
+            if (_attackCounter >= AttackCount) {
+                _attackCounter = 0;
                 return _blockState;
             }
 
@@ -80,8 +63,7 @@ public class AttackState : BossState
         return null;
     }
 
-    public override void LeaveState()
-    {
+    public override void LeaveState() {
         isAttackDone = false;
     }
 }

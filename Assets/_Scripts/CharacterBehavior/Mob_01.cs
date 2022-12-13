@@ -3,11 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mob_01 : MonoBehaviour
-{
+public class Mob_01 : MonoBehaviour {
 
-    public enum Boss_01States
-    {
+    public enum MobState {
         Idle,
         Chase,
         PrepareAttack,
@@ -21,153 +19,115 @@ public class Mob_01 : MonoBehaviour
 
     public Action OnStateChanged;
 
-
-    public float minChaseTime = 3;
-    private float _chaseTimerStart;
-
-
+    [SerializeField] AudioClip _jumpSFX;
+    [SerializeField] Health _health;
+    public AnimationCurve JumpAnimCurve;
+    public GameObject DeathParticle;
+    public AudioClip hurtSFX;
+    public IHitter Hitter;
+    public float MinChaseTime = 3;
     public float AttackDistance = 5;
     public float PrepareTime = 2;
-    float _prepareTimer;
+    public float LoungeAttackTime = 1;
+    public float StuckTime = 2;
+    public float KnockBackTime = 0.5f;
+    public float ChaseDistance;
 
-    public float loungeAttackTime = 1;
-    float startAttackTime;
-    public AnimationCurve JumpAnimCurve;
-
-    public float stuckTime = 2;
+    private MovementController _mc;
+    private GameObject player;
+    private Vector3 _previousPosition;
+    private Vector3 _targetPosition;
+    private float _chaseStartTime;
+    private float _prepareStartTime;
+    private float _startAttackTime;
     private float _stuckTimer;
-
-    float IdleTime = 1;
-    float _idleStartTime= 0;
-
-    public float knockBackTime = 0.5f;
+    private float _idleTime = 1;
+    private float _idleStartTime = 0;
     private float knockBackStartTime;
-    public GameObject DeathParticle;
 
+    private MobState _currenState = MobState.Idle;
 
-    [SerializeField]
-    AudioClip jumpSFX;
-
-
-
-    private Boss_01States _currenState = Boss_01States.Idle;
-
-    public Boss_01States CurrentState
-    {
+    public MobState CurrentState {
         get { return _currenState; }
-        set { 
+        set {
 
-            if(value == Boss_01States.Chase)
-            {
-                hitter.Activate();
+            if (value == MobState.Chase) {
+                Hitter.Activate();
             }
-            else if(value == Boss_01States.Stuck)
-            {
-                hitter.Deactivate();
+            else if (value == MobState.Stuck) {
+                Hitter.Deactivate();
             }
-            else if (value == Boss_01States.Attacking)
-            {
-                AudioManager.Instance.PlayAudio(jumpSFX, transform.position);
+            else if (value == MobState.Attacking) {
+                AudioManager.Instance.PlayAudio(_jumpSFX, transform.position);
             }
 
-
-            _currenState = value; 
+            _currenState = value;
             OnStateChanged?.Invoke();
         }
     }
 
-    private GameObject player;
-    [SerializeField]
-    private Health _health;
-
-
-    public IHitter hitter;
-
-    MovementController _mc;
-    private Vector3 previousPosition;
-    private Vector3 targetPosition;
-    public float ChaseDistance;
-
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         _mc = GetComponent<MovementController>();
         _idleStartTime = Time.time;
-
 
         _health.OnDeath += OnDeath;
         _health.OnHurt += OnHurt;
 
-        hitter.Activate();
-        hitter.OnHit += OnTargetHit;
+        Hitter.Activate();
+        Hitter.OnHit += OnTargetHit;
 
         player = GameManager.Instance.Player;
 
     }
 
-    private void OnTargetHit()
-    {
-        hitter.Deactivate();
-        //_idleStartTime = Time.time;
-        //CurrentState = Boss_01States.Idle;
+    private void OnTargetHit() {
+        Hitter.Deactivate();
         StartCoroutine(ReactivateHitter(1f));
     }
 
-
-    IEnumerator ReactivateHitter(float time)
-    {
+    IEnumerator ReactivateHitter(float time) {
         yield return new WaitForSeconds(time);
-        hitter.Activate();
+        Hitter.Activate();
     }
 
-    private void OnDeath()
-    {
+    private void OnDeath() {
         StartCoroutine(OnDeathWait());
     }
 
-    private IEnumerator OnDeathWait()
-    {
-        hitter.Deactivate();
+    private IEnumerator OnDeathWait() {
+        Hitter.Deactivate();
         yield return new WaitForSeconds(.2f);
         Instantiate(DeathParticle, transform.position + (Vector3.up), Quaternion.identity);
         Destroy(gameObject);
     }
 
-
-    public AudioClip hurtSFX;
-    private void OnHurt()
-    {
+    private void OnHurt() {
         AudioManager.Instance.PlayAudio(hurtSFX, transform.position);
         _mc.MoveInput = Vector2.zero;
-        CurrentState = Boss_01States.Hurt;
+        CurrentState = MobState.Hurt;
 
         knockBackStartTime = Time.time;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        switch (CurrentState)
-        {
+    void Update() {
+        switch (CurrentState) {
 
-            case Boss_01States.Idle:
+            case MobState.Idle:
                 IdleState();
                 break;
-            case Boss_01States.Chase:
+            case MobState.Chase:
                 ChaseState();
                 break;
-            case Boss_01States.PrepareAttack:
+            case MobState.PrepareAttack:
                 PrepareAttack();
                 break;
-            case Boss_01States.Attacking:
+            case MobState.Attacking:
                 AttackState();
                 break;
-            case Boss_01States.Stuck:
+            case MobState.Stuck:
                 StuckState();
                 break;
-            case Boss_01States.Hurt:
+            case MobState.Hurt:
                 HurtState();
                 break;
             default:
@@ -175,93 +135,79 @@ public class Mob_01 : MonoBehaviour
         }
 
     }
-    private void OnDestroy()
-    {
+
+    private void OnDestroy() {
         _health.OnHurt -= OnHurt;
         _health.OnDeath -= OnDeath;
     }
 
-    private void HurtState()
-    {
-        float t = Mathf.Clamp01((Time.time - knockBackStartTime) / knockBackTime);
-        if (t >= 1)
-        {
+    private void HurtState() {
+        float t = Mathf.Clamp01((Time.time - knockBackStartTime) / KnockBackTime);
+        if (t >= 1) {
             _idleStartTime = Time.time;
-            CurrentState = Boss_01States.Idle;
+            CurrentState = MobState.Idle;
             return;
         }
     }
 
-    private void StuckState()
-    {
-        if (_stuckTimer + stuckTime < Time.time)
-        {
-            _chaseTimerStart = Time.time;
-            CurrentState = Boss_01States.Chase;
+    private void StuckState() {
+        if (_stuckTimer + StuckTime < Time.time) {
+            _chaseStartTime = Time.time;
+            CurrentState = MobState.Chase;
             return;
         }
     }
 
-    private void AttackState()
-    {
+    private void AttackState() {
 
-        float t = Mathf.Clamp01((Time.time - startAttackTime) / loungeAttackTime);
+        float t = Mathf.Clamp01((Time.time - _startAttackTime) / LoungeAttackTime);
 
-        if(t >= 1)
-        {
+        if (t >= 1) {
             _stuckTimer = Time.time;
-            CurrentState = Boss_01States.Stuck;
+            CurrentState = MobState.Stuck;
             return;
         }
 
-        Vector3 groundPos = Vector3.Lerp(previousPosition, targetPosition, t);
+        Vector3 groundPos = Vector3.Lerp(_previousPosition, _targetPosition, t);
         groundPos.y = JumpAnimCurve.Evaluate(t);
-
-        //groundPos.y = -Mathf.Pow((t-.5f)*2 ,2) + 1;
 
         transform.position = groundPos;
     }
 
-    private void IdleState()
-    {
+    private void IdleState() {
         float distance = Vector3.Distance(player.transform.position, transform.position);
-        if (IdleTime + _idleStartTime < Time.time && distance <= ChaseDistance)
-        {
-            CurrentState = Boss_01States.Chase;
-            _chaseTimerStart = Time.time;
+        if (_idleTime + _idleStartTime < Time.time && distance <= ChaseDistance) {
+            CurrentState = MobState.Chase;
+            _chaseStartTime = Time.time;
             return;
         }
     }
 
-    private void PrepareAttack()
-    {
+    private void PrepareAttack() {
 
-        if (_prepareTimer + PrepareTime < Time.time)
-        {
-            startAttackTime = Time.time;
-            previousPosition = transform.position;
-            previousPosition.y = 0;
-            CurrentState = Boss_01States.Attacking;
+        if (_prepareStartTime + PrepareTime < Time.time) {
+            _startAttackTime = Time.time;
+            _previousPosition = transform.position;
+            _previousPosition.y = 0;
+            CurrentState = MobState.Attacking;
             return;
         }
     }
 
-    private void ChaseState()
-    {
+    private void ChaseState() {
 
         //Change state possibilities
         float distance = Vector3.Distance(player.transform.position, transform.position);
-        if(_chaseTimerStart + minChaseTime < Time.time && distance <= AttackDistance)
-        {
+        if (_chaseStartTime + MinChaseTime < Time.time && distance <= AttackDistance) {
 
-            targetPosition = player.transform.position;
-            targetPosition.y = 0;
+            _targetPosition = player.transform.position;
+            _targetPosition.y = 0;
 
 
             _mc.MoveInput = Vector2.zero;
 
-            CurrentState = Boss_01States.PrepareAttack;
-            _prepareTimer = Time.time;
+            CurrentState = MobState.PrepareAttack;
+            _prepareStartTime = Time.time;
             return;
         }
 
