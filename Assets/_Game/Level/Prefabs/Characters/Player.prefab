@@ -175,13 +175,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13aa6ccbf54d8d84bb2a57d887456691, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitClip: {fileID: 8300000, guid: 404223b439508624bb7e05defceac2de, type: 3}
-  needRefresh: 0
-  RefreshTimer: 1
-  knockbackForce: 10
-  knockbackTime: 0.5
-  HitterSource: {fileID: 1065365729180294544}
   _isActivated: 0
+  NeedRefresh: 0
+  RefreshTimer: 1
+  KnockbackForce: 10
+  KnockbackTime: 1
+  HitterSource: {fileID: 1065365729180294544}
+  HitSFX: {fileID: 8300000, guid: 404223b439508624bb7e05defceac2de, type: 3}
 --- !u!114 &565499466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,13 +283,13 @@ MonoBehaviour:
   hitter: {fileID: 146817434447819357}
   _interacter: {fileID: 565499466}
   playerAnimCtrl: {fileID: 146817435459845851}
-  deadSFX: {fileID: 8300000, guid: 619c7cf2f520f0f42bc0120b4243f33b, type: 3}
-  hurtSFX: {fileID: 8300000, guid: e18dc1205851f644e81e6511c2414431, type: 3}
   _health: {fileID: 8946036788006263134}
   DeadSpawn: {fileID: 6313932435671916861, guid: 239397d157c4b9d48839d2377145db53,
     type: 3}
   _meshRenderer: {fileID: 3264147222971297419}
   _collider: {fileID: 146817435459845845}
+  DeadSFX: {fileID: 8300000, guid: 619c7cf2f520f0f42bc0120b4243f33b, type: 3}
+  HurtSFX: {fileID: 8300000, guid: e18dc1205851f644e81e6511c2414431, type: 3}
 --- !u!114 &146817435459845847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -358,8 +358,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Hp: {fileID: 8946036788006263134}
-  flash: {fileID: 321506401}
-  _mc: {fileID: 146817435459845847}
+  Flash: {fileID: 321506401}
+  Mc: {fileID: 146817435459845847}
 --- !u!114 &8946036788006263134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1321,8 +1321,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e79f26e60123564d8cace598061909f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitter: {fileID: 146817434447819357}
-  bootSFX:
+  _hitter: {fileID: 146817434447819357}
+  _bootSFX:
   - {fileID: 8300000, guid: 71fdf1099c58372429431430e291d0fd, type: 3}
   - {fileID: 8300000, guid: f7701af9a64c6104299f794d4b24768a, type: 3}
 --- !u!137 &3264147222971297419 stripped

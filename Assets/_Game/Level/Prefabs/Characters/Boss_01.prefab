@@ -416,11 +416,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc847b2977ed5a047994f4612d93e580, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _blockState: {fileID: 6187022637292117856}
+  _idleState: {fileID: 1571495674525203536}
   _animator: {fileID: 7596712923608534775}
   _health: {fileID: 1833349354854046057}
-  _idleState: {fileID: 1571495674525203536}
-  _blockState: {fileID: 6187022637292117856}
-  AttackCount: 2
   hitters:
   - {fileID: 6016716885927196963}
   - {fileID: 6463542337790560884}
@@ -428,6 +427,7 @@ MonoBehaviour:
   - RIG_Boss_01_Boss_Attack_01
   - RIG_Boss_01|Boss_Attack_02
   - RIG_Boss_01_Boss_Attack_03
+  AttackCount: 2
 --- !u!1 &848184193919192842
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,7 +474,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animator: {fileID: 7596712923608534775}
   cloudParticles: {fileID: 8408582000261315321}
-  winMusic: {fileID: 5049253280595692134}
+  WinMusic: {fileID: 5049253280595692134}
 --- !u!1 &959246369308446358
 GameObject:
   m_ObjectHideFlags: 0
@@ -5788,9 +5788,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38d30cbd5eaec544085d5d3ca5f3bb26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _attackState: {fileID: 2271332602537018206}
   _animator: {fileID: 7596712923608534775}
   IdleTime: 3
-  _attackState: {fileID: 2271332602537018206}
 --- !u!1 &3362495335204789985
 GameObject:
   m_ObjectHideFlags: 0
@@ -5912,13 +5912,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13aa6ccbf54d8d84bb2a57d887456691, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitClip: {fileID: 0}
-  needRefresh: 1
-  RefreshTimer: 1
-  knockbackForce: 10
-  knockbackTime: 1
-  HitterSource: {fileID: 4802050983113639656}
   _isActivated: 0
+  NeedRefresh: 0
+  RefreshTimer: 1
+  KnockbackForce: 10
+  KnockbackTime: 1
+  HitterSource: {fileID: 4802050983113639656}
+  HitSFX: {fileID: 0}
 --- !u!1 &4824418771658304004
 GameObject:
   m_ObjectHideFlags: 0
@@ -6100,13 +6100,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _health: {fileID: 1833349354854046057}
   _animator: {fileID: 7596712923608534775}
-  BlockTime: 5
   _idleState: {fileID: 1571495674525203536}
   _deadState: {fileID: 6872673863226627966}
   _weakpoints:
   - {fileID: 1617083737561599813}
   - {fileID: 7987706423341103838}
   - {fileID: 2132692581481336140}
+  BlockTime: 5
 --- !u!1 &5557849983199016789
 GameObject:
   m_ObjectHideFlags: 0
@@ -6318,13 +6318,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13aa6ccbf54d8d84bb2a57d887456691, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitClip: {fileID: 0}
-  needRefresh: 1
-  RefreshTimer: 1
-  knockbackForce: 10
-  knockbackTime: 1
-  HitterSource: {fileID: 6004395125676414802}
   _isActivated: 0
+  NeedRefresh: 0
+  RefreshTimer: 1
+  KnockbackForce: 10
+  KnockbackTime: 1
+  HitterSource: {fileID: 6004395125676414802}
+  HitSFX: {fileID: 0}
 --- !u!1 &6150685198049980247
 GameObject:
   m_ObjectHideFlags: 0

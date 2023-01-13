@@ -60,8 +60,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3db01a2b9929e3741980c74298ccfbd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextLevelSFX: {fileID: 8300000, guid: 4bc6d16478e4441418fc1e03c421eead, type: 3}
-  nextLevel: 1
+  NextLevelSFX: {fileID: 8300000, guid: 10389a0258dc6bd41bb572882278b02e, type: 3}
+  NextLevelIndex: 0
 --- !u!1 &2396035900293406301
 GameObject:
   m_ObjectHideFlags: 0

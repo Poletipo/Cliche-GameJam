@@ -283,10 +283,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 335805f8c75066a4f9c9d4dbf0812bca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minChaseTime: 3
-  AttackDistance: 3
-  PrepareTime: 0.6
-  loungeAttackTime: 0.7
+  _jumpSFX: {fileID: 8300000, guid: 66c17afb19216f14497eb82ac25e0824, type: 3}
+  _health: {fileID: 5591703853776981925}
   JumpAnimCurve:
     serializedVersion: 2
     m_Curve:
@@ -329,15 +327,17 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  stuckTime: 1.3
-  knockBackTime: 0.5
   DeathParticle: {fileID: 664041309615286585, guid: e840fd497e5d02c4e9cb7b863f3409bf,
     type: 3}
-  jumpSFX: {fileID: 8300000, guid: 66c17afb19216f14497eb82ac25e0824, type: 3}
-  _health: {fileID: 5591703853776981925}
-  hitter: {fileID: 2063565376}
-  ChaseDistance: 6
   hurtSFX: {fileID: 8300000, guid: 331ab88dfe3aaab4b9818b13a2fe1265, type: 3}
+  Hitter: {fileID: 2063565376}
+  MinChaseTime: 3
+  AttackDistance: 3
+  PrepareTime: 0.6
+  LoungeAttackTime: 1
+  StuckTime: 2
+  KnockBackTime: 0.5
+  ChaseDistance: 6
 --- !u!54 &5591703853776981922
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -366,13 +366,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13aa6ccbf54d8d84bb2a57d887456691, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitClip: {fileID: 0}
-  needRefresh: 1
-  RefreshTimer: 1
-  knockbackForce: 10
-  knockbackTime: 0.5
-  HitterSource: {fileID: 376171260}
   _isActivated: 0
+  NeedRefresh: 0
+  RefreshTimer: 1
+  KnockbackForce: 10
+  KnockbackTime: 1
+  HitterSource: {fileID: 376171260}
+  HitSFX: {fileID: 0}
 --- !u!114 &1797787845676044007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -386,7 +386,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 4979078800505092100}
-  mob: {fileID: 5591703853776981924}
+  _mob: {fileID: 5591703853776981924}
 --- !u!114 &9161871005836420511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -402,8 +402,8 @@ MonoBehaviour:
   Hp: {fileID: 5591703853776981925}
   flash: {fileID: 4390008593148606454}
   _mc: {fileID: 5591703853776981923}
-  frontAngle: 100
   shoveSFX: {fileID: 8300000, guid: 05fb5c20e644d9c4eb06908ba6fdd4c0, type: 3}
+  frontAngle: 100
 --- !u!1001 &4263003400109599908
 PrefabInstance:
   m_ObjectHideFlags: 0
